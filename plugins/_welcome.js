@@ -31,14 +31,13 @@ export async function before(m, { conn, participants, groupMetadata }) {
   else if (m.messageStubType == 28 || m.messageStubType == 32) groupSize--;
 
   
+
   if (chat.welcome && m.messageStubType == 27) {
-    let bienvenida = `𝗕𝗶𝗲𝗻𝘃𝗲𝗻𝗶𝗱𝗼(a) @${m.messageStubParameters[0].split`@`[0]}\n☆ Esperamos que tu participación en este *grupo* sea constructiva y respetuosa.\n✎ Puedes usar *#help* para ver todos los comandos disponibles.\n〄╏ 𝗔𝗣𝗜: https://apiadonix.kozow.com`
+    let bienvenida = `𝗕𝗶𝗲𝗻𝘃𝗲𝗻𝗶𝗱𝗼(a) @${m.messageStubParameters[0].split`@`[0]}\n☆ Esperamos que tu participación en este *grupo* sea constructiva y respetuosa.\n✎ Puedes usar *#help* para ver todos los comandos disponibles.\n〄╏ 𝗔𝗣𝗜's:\nhttps://apiadonix.kozow.com\nhttps://mayapi.ooguy.com`
     await conn.sendMessage(m.chat, { image: img, caption: bienvenida, mentions: [m.messageStubParameters[0]] }, { quoted: fkontak })
   }
 
-  
   if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
-    let bye = `@${m.messageStubParameters[0].split`@`[0]} 𝗦𝗲 𝗵𝗮 𝗿𝗲𝘁𝗶𝗿𝗮𝗱𝗼 𝗱𝗲𝗹 𝐆𝐫𝐮𝐩𝐨\n「❏」 Actualmente, el grupo cuenta con *${groupSize}* miembros.\n✎ Puedes usar *#help* para ver todos los comandos disponibles.\n〄╏ 𝗔𝗣𝗜: https://apiadonix.kozow.com`
+    let bye = `@${m.messageStubParameters[0].split`@`[0]} 𝗦𝗲 𝗵𝗮 𝗿𝗲𝘁𝗶𝗿𝗮𝗱𝗼 𝗱𝗲𝗹 𝐆𝐫𝐮𝐩𝐨\n「❏」 Actualmente, el grupo cuenta con *${groupSize}* miembros.\n✎ Puedes usar *#help* para ver todos los comandos disponibles.\n〄╏ 𝗔𝗣𝗜's:\nhttps://apiadonix.kozow.com\nhttps://mayapi.ooguy.com`
     await conn.sendMessage(m.chat, { image: img, caption: bye, mentions: [m.messageStubParameters[0]] }, { quoted: fkontak })
   }
-}
