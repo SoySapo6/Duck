@@ -52,7 +52,7 @@ delirius: { url: "https://api.delirius.store", key: null },
 zenzxz: { url: "https://api.zenzxz.my.id", key: null },
 siputzx: { url: "https://api.siputzx.my.id", key: null },
 mayapi: { url: "https://mayapi.ooguy.com", key: "may-3d9ac5f2" },
-myapiadonix: { url: "https://apiadonix.kozow.com", key: "SoyMaycol<3" }
+apiadonix: { url: "https://apiadonix.kozow.com", key: "SoyMaycol<3" }
 }
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
