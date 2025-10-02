@@ -81,7 +81,7 @@ const handler = async (m, { conn, usedPrefix, command }) => {
             m.chat,
             img,
             (char.name || 'personaje') + '.jpg',
-            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${char.source || 'Desconocido'}`,
+            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${char.source || 'Libre'}`,
             m
         );
 
