@@ -17,8 +17,8 @@ global.prems = []
 global.libreria = "AdonixBailyes"
 global.vs = "Latest"
 global.nameqr = "Duck-MD"
-global.sessions = "AMBots/Principal"
-global.jadi = "AMBots/SubBots"
+global.sessions = "Sessions/Principal"
+global.jadi = "Sessions/SubBots"
 global.duckJadibts = true
 
 
