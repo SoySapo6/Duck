@@ -403,17 +403,17 @@ export async function handler(chatUpdate) {
 
 global.dfail = (type, m, conn, usedPrefix) => {
 let msg = {
-    rowner: `「❑」 𝐀𝐭𝐞𝐧𝐜𝐢𝐨́𝐧: 𝐞𝐬𝐭𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨 𝐞𝐬 𝐝𝐞 𝐮𝐬𝐨 𝐞𝐱𝐜𝐥𝐮𝐬𝐢𝐯𝐨 𝐝𝐞𝐥 *𝐂𝐫𝐞𝐚𝐝𝐨𝐫* 𝐝𝐞 𝐥𝐚 𝐁𝐨𝐭. 𝐍𝐢𝐧𝐠𝐮́𝐧 𝐨𝐭𝐫𝐨 𝐮𝐬𝐮𝐚𝐫𝐢𝐨 𝐩𝐨𝐝𝐫𝐚́ 𝐞𝐣𝐞𝐜𝐮𝐭𝐚𝐫𝐥𝐨.`,    
-    owner: `「❑」 𝐄𝐬𝐭𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨 𝐬𝐨𝐥𝐨 𝐩𝐮𝐞𝐝𝐞 𝐬𝐞𝐫 𝐮𝐭𝐢𝐥𝐢𝐳𝐚𝐝𝐨 𝐩𝐨𝐫 𝐞𝐥 *𝐂𝐫𝐞𝐚𝐝𝐨𝐫* 𝐝𝐞 𝐥𝐚 𝐁𝐨𝐭 𝐲 𝐩𝐨𝐫 𝐥𝐨𝐬 *𝐒𝐮𝐛 𝐁𝐨𝐭𝐬*. 𝐄𝐬𝐭𝐨 𝐬𝐞 𝐝𝐞𝐛𝐞 𝐚 𝐪𝐮𝐞 𝐢𝐧𝐜𝐥𝐮𝐲𝐞 𝐟𝐮𝐧𝐜𝐢𝐨𝐧𝐞𝐬 𝐝𝐞 𝐠𝐞𝐬𝐭𝐢𝐨́𝐧 𝐲 𝐜𝐨𝐧𝐟𝐢𝐠𝐮𝐫𝐚𝐜𝐢𝐨́𝐧 𝐝𝐞𝐥 𝐬𝐢𝐬𝐭𝐞𝐦𝐚.`,    
-    mods: `「❑」 𝐂𝐨𝐦𝐚𝐧𝐝𝐨 𝐝𝐢𝐬𝐞𝐧̃𝐚𝐝𝐨 𝐞𝐱𝐜𝐥𝐮𝐬𝐢𝐯𝐚𝐦𝐞𝐧𝐭𝐞 𝐩𝐚𝐫𝐚 𝐥𝐨𝐬 *𝐌𝐨𝐝𝐞𝐫𝐚𝐝𝐨𝐫𝐞𝐬*. 𝐄𝐥𝐥𝐨𝐬 𝐭𝐢𝐞𝐧𝐞𝐧 𝐩𝐞𝐫𝐦𝐢𝐬𝐨𝐬 𝐚𝐝𝐢𝐜𝐢𝐨𝐧𝐚𝐥𝐞𝐬 𝐩𝐚𝐫𝐚 𝐦𝐚𝐧𝐭𝐞𝐧𝐞𝐫 𝐞𝐥 𝐨𝐫𝐝𝐞𝐧 𝐲 𝐥𝐚 𝐬𝐞𝐠𝐮𝐫𝐢𝐝𝐚𝐝 𝐝𝐞 𝐥𝐚 𝐁𝐨𝐭.`,   
-    premium: `「❑」 𝐄𝐬𝐭𝐚 𝐟𝐮𝐧𝐜𝐢𝐨́𝐧 𝐞𝐬 𝐞𝐱𝐜𝐥𝐮𝐬𝐢𝐯𝐚 𝐩𝐚𝐫𝐚 𝐮𝐬𝐮𝐚𝐫𝐢𝐨𝐬 *𝐏𝐫𝐞𝐦𝐢𝐮𝐦*. 𝐋𝐨𝐬 𝐮𝐬𝐮𝐚𝐫𝐢𝐨𝐬 𝐜𝐨𝐧 𝐞𝐬𝐭𝐞 𝐭𝐢𝐩𝐨 𝐝𝐞 𝐜𝐮𝐞𝐧𝐭𝐚 𝐝𝐢𝐬𝐟𝐫𝐮𝐭𝐚𝐧 𝐝𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐲 𝐞𝐱𝐭𝐫𝐚𝐬 𝐪𝐮𝐞 𝐧𝐨 𝐞𝐬𝐭𝐚́𝐧 𝐝𝐢𝐬𝐩𝐨𝐧𝐢𝐛𝐥𝐞𝐬 𝐩𝐚𝐫𝐚 𝐞𝐥 𝐫𝐞𝐬𝐭𝐨.`,    
-    group: `「❑」 𝐄𝐬𝐭𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨 𝐬𝐨𝐥𝐨 𝐬𝐞 𝐩𝐮𝐞𝐝𝐞 𝐮𝐬𝐚𝐫 𝐝𝐞𝐧𝐭𝐫𝐨 𝐝𝐞 𝐮𝐧 *𝐆𝐫𝐮𝐩𝐨*. 𝐍𝐨 𝐞𝐬𝐭𝐚́ 𝐝𝐢𝐬𝐩𝐨𝐧𝐢𝐛𝐥𝐞 𝐩𝐚𝐫𝐚 𝐜𝐡𝐚𝐭𝐬 𝐩𝐫𝐢𝐯𝐚𝐝𝐨𝐬.`,    
-    private: `「❑」 𝐂𝐨𝐦𝐚𝐧𝐝𝐨 𝐞𝐱𝐜𝐥𝐮𝐬𝐢𝐯𝐨 𝐩𝐚𝐫𝐚 𝐜𝐡𝐚𝐭𝐬 *𝐏𝐫𝐢𝐯𝐚𝐝𝐨𝐬*. 𝐍𝐨 𝐩𝐨𝐝𝐫𝐚́ 𝐮𝐬𝐚𝐫𝐬𝐞 𝐞𝐧 𝐠𝐫𝐮𝐩𝐨𝐬.`,    
-    admin: `「❑」 𝐄𝐬𝐭𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨 𝐞𝐬𝐭𝐚́ 𝐝𝐢𝐬𝐩𝐨𝐧𝐢𝐛𝐥𝐞 𝐬𝐨𝐥𝐨 𝐩𝐚𝐫𝐚 𝐥𝐨𝐬 *𝐀𝐝𝐦𝐢𝐧𝐢𝐬𝐭𝐫𝐚𝐝𝐨𝐫𝐞𝐬* 𝐝𝐞𝐥 𝐠𝐫𝐮𝐩𝐨. 𝐒𝐮 𝐟𝐢𝐧 𝐞𝐬 𝐚𝐲𝐮𝐝𝐚𝐫 𝐚 𝐠𝐞𝐬𝐭𝐢𝐨𝐧𝐚𝐫 𝐲 𝐦𝐚𝐧𝐭𝐞𝐧𝐞𝐫 𝐥𝐚 𝐝𝐢𝐧𝐚́𝐦𝐢𝐜𝐚 𝐝𝐞 𝐥𝐨𝐬 𝐦𝐢𝐞𝐦𝐛𝐫𝐨𝐬.`,    
-    botAdmin: `「❑」 𝐏𝐚𝐫𝐚 𝐞𝐣𝐞𝐜𝐮𝐭𝐚𝐫 𝐞𝐬𝐭𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨 𝐥𝐚 𝐁𝐨𝐭 𝐝𝐞𝐛𝐞 𝐭𝐞𝐧𝐞𝐫 𝐞𝐥 𝐩𝐞𝐫𝐦𝐢𝐬𝐨 𝐝𝐞 *𝐀𝐝𝐦𝐢𝐧𝐢𝐬𝐭𝐫𝐚𝐝𝐨𝐫*. 𝐒𝐢 𝐧𝐨 𝐭𝐢𝐞𝐧𝐞 𝐞𝐬𝐭𝐞 𝐫𝐨𝐥, 𝐧𝐨 𝐩𝐨𝐝𝐫𝐚́ 𝐫𝐞𝐚𝐥𝐢𝐳𝐚𝐫 𝐥𝐚 𝐚𝐜𝐜𝐢𝐨́𝐧 𝐪𝐮𝐞 𝐬𝐨𝐥𝐢𝐜𝐢𝐭𝐚𝐬.`,    
-    unreg: `「❑」 𝐍𝐨 𝐡𝐚𝐬 𝐜𝐨𝐦𝐩𝐥𝐞𝐭𝐚𝐝𝐨 𝐭𝐮 𝐫𝐞𝐠𝐢𝐬𝐭𝐫𝐨. 𝐏𝐚𝐫𝐚 𝐮𝐬𝐚𝐫 𝐥𝐨𝐬 𝐜𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐝𝐞 𝐥𝐚 𝐁𝐨𝐭 𝐝𝐞𝐛𝐞𝐬 𝐫𝐞𝐠𝐢𝐬𝐭𝐫𝐚𝐫𝐭𝐞 𝐩𝐫𝐢𝐦𝐞𝐫𝐨.\n\n「❑」 𝐔𝐬𝐚: */reg nombre.edad*\n「❑」 𝐄𝐣𝐞𝐦𝐩𝐥𝐨: */reg JTxs.666*`,
-    restrict: `「❑」 𝐄𝐬𝐭𝐚 𝐟𝐮𝐧𝐜𝐢𝐨́𝐧 𝐬𝐞 𝐞𝐧𝐜𝐮𝐞𝐧𝐭𝐫𝐚 𝐝𝐞𝐬𝐡𝐚𝐛𝐢𝐥𝐢𝐭𝐚𝐝𝐚 𝐩𝐨𝐫 𝐞𝐥 𝐚𝐝𝐦𝐢𝐧𝐢𝐬𝐭𝐫𝐚𝐝𝐨𝐫. 𝐍𝐨 𝐞𝐬𝐭𝐚́ 𝐝𝐢𝐬𝐩𝐨𝐧𝐢𝐛𝐥𝐞 𝐩𝐚𝐫𝐚 𝐧𝐢𝐧𝐠𝐮́𝐧 𝐮𝐬𝐮𝐚𝐫𝐢𝐨 𝐞𝐧 𝐞𝐬𝐭𝐞 𝐦𝐨𝐦𝐞𝐧𝐭𝐨.`  
-    }[type]
+    rowner: `🦆💦 *Cuak cuak!* Atención: el comando *${global.comando}* solo puede ser usado por los patos supremos (Creador del bot). Ningún otro pato puede tocarlo!`,
+    owner: `🦆👑 Solo los patos desarrolladores (Creador + Sub Bots) pueden usar *${global.comando}*. Incluye poderes especiales de gestión del charco 🐤.`,
+    mods: `🦆🛡️ Comando exclusivo para los moderadores-pato. Ellos mantienen el orden y protegen el estanque 🦆✨.`,
+    premium: `🦆💎 Patos Premium, este comando es solo para ustedes! Disfruten de poderes y comandos extra que los patitos normales no pueden usar.`,
+    group: `🦆🐤 Este comando solo se puede usar en el estanque (grupo). Los charcos privados no tienen acceso.`,
+    private: `🦆📩 Comando exclusivo para chats privados con el pato-bot. Nada de grupos por aquí!`,
+    admin: `🦆🪶 Solo los patos administradores del grupo pueden usar *${global.comando}*. Ayudan a mantener la dinámica y la armonía del estanque.`,
+    botAdmin: `🦆⚠️ Para que yo pueda ejecutar *${global.comando}* debo ser admin del estanque 🦆. Si no, no puedo realizar la acción.`,
+    unreg: `🦆❗ Aún no estás registrado, patito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg JTxs.666*`,
+    restrict: `🦆🚫 Esta función está deshabilitada por el administrador del estanque. No disponible para ningún pato por ahora.`
+}[type];
     if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))
 }
 
