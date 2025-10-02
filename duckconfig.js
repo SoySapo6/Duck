@@ -13,8 +13,8 @@ global.jadi = "Sessions/SubBot"
 
 global.nombre2 = ''
 global.autor = ''
-global.nombre = ''
-global.img = ''
+global.nombre = 'Duck AM'
+global.img = 'https://files.catbox.moe/0hfvjz.jpg'
 
 global.name_canal = ''
 global.id_canal = ''
