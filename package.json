@@ -28,7 +28,7 @@
     "@bochilteam/scraper": "^4.2.4",
     "@hapi/boom": "^10.0.1",
     "@StarlightsTeam/Scraper": "github:StarlightsTeam/StarlightsTeam-Scraper",
-    "@whiskeysockets/baileys": "github:Ado-rgb/AdonixBaileys",
+    "@whiskeysockets/baileys": "github:SoySapo6/DogBail",
     "ruhend-scraper": "*",
     "awesome-phonenumber": "^3.4.0",
     "axios": "^1.1.2",
