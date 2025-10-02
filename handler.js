@@ -462,16 +462,16 @@ export async function handler(chatUpdate) {
 
 global.dfail = (type, m, conn, usedPrefix) => {
 let msg = {
-    rowner: `🦆💦 *Cuak cuak!* Atención: el comando *${global.comando}* solo puede ser usado por los patos supremos (Creador del bot). Ningún otro pato puede tocarlo!`,
-    owner: `🦆👑 Solo los patos desarrolladores (Creador + Sub Bots) pueden usar *${global.comando}*. Incluye poderes especiales de gestión del charco 🐤.`,
-    mods: `🦆🛡️ Comando exclusivo para los moderadores-pato. Ellos mantienen el orden y protegen el estanque 🦆✨.`,
-    premium: `🦆💎 Patos Premium, este comando es solo para ustedes! Disfruten de poderes y comandos extra que los patitos normales no pueden usar.`,
-    group: `🦆🐤 Este comando solo se puede usar en el estanque (grupo). Los charcos privados no tienen acceso.`,
-    private: `🦆📩 Comando exclusivo para chats privados con el pato-bot. Nada de grupos por aquí!`,
-    admin: `🦆🪶 Solo los patos administradores del grupo pueden usar *${global.comando}*. Ayudan a mantener la dinámica y la armonía del estanque.`,
-    botAdmin: `🦆⚠️ Para que yo pueda ejecutar *${global.comando}* debo ser admin del estanque 🦆. Si no, no puedo realizar la acción.`,
-    unreg: `🦆❗ Aún no estás registrado, patito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg PatoInsano.17*`,
-    restrict: `🦆🚫 Esta función está deshabilitada por el administrador del estanque. No disponible para ningún pato por ahora.`
+    rowner: `🐶💦 *Guau guau!* Atención: el comando *${global.comando}* solo puede ser usado por los perros supremos (Creador del bot). Ningún otro perro puede tocarlo!`,
+    owner: `🐶👑 Solo los perros desarrolladores pueden usar *${global.comando}*. Incluye poderes especiales de gestión del parque 🐕.`,
+    mods: `🐶🛡️ Comando exclusivo para los moderadores-perro. Ellos mantienen el orden y protegen el parque 🐕✨.`,
+    premium: `🐶💎 Perros Premium, este comando es solo para ustedes! Disfruten de poderes y comandos extra que los perritos normales no pueden usar.`,
+    group: `🐶🐾 Este comando solo se puede usar en el parque (grupo). Los patios privados no tienen acceso.`,
+    private: `🐶📩 Comando exclusivo para chats privados con el perro-bot. Nada de grupos por aquí!`,
+    admin: `🐶🪶 Solo los perros administradores del grupo pueden usar *${global.comando}*. Ayudan a mantener la dinámica y la armonía del parque.`,
+    botAdmin: `🐶⚠️ Para que yo pueda ejecutar *${global.comando}* debo ser admin del parque 🐕. Si no, no puedo realizar la acción.`,
+    unreg: `🐶❗ Aún no estás registrado, perrito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg Fido.3*`,
+    restrict: `🐶🚫 Esta función está deshabilitada por el administrador del parque. No disponible para ningún perro por ahora.`
 }[type];
     if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))
 }
