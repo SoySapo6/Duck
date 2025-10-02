@@ -6,24 +6,24 @@ import fs from "fs"
 global.botNumber = "" 
 
 global.owner = [
-"573196588149",
-"5492916450307",
-"5216671548329"
+"50493732693",
+"51921826291",
+""
 ]
 
-global.suittag = ["573196588149"] 
+global.suittag = [""] 
 global.prems = []
 
 
 global.libreria = "Baileys Multi Device"
 global.vs = "^1.8.2|Latest"
-global.nameqr = "YukiBot-MD"
+global.nameqr = "Duck-MD"
 global.sessions = "Sessions/Principal"
 global.jadi = "Sessions/SubBot"
 global.yukiJadibts = true
 
 
-global.botname = "ᥡᥙkі sᥙ᥆ᥙ"
+global.botname = "XZ 𝗗𝘂𝗰𝗸"
 global.textbot = "ᥡᥙkі, mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ"
 global.dev = "© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
 global.author = "© mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
