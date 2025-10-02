@@ -23,22 +23,22 @@ global.jadi = "Sessions/SubBot"
 global.yukiJadibts = true
 
 
-global.botname = "XZ 𝗗𝘂𝗰𝗸"
-global.textbot = "ᥡᥙkі, mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ"
-global.dev = "© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
-global.author = "© mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
-global.etiqueta = "ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
-global.currency = "¥enes"
-global.banner = "https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1742678744381.jpeg"
-global.icono = "https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1742678797993.jpeg"
+global.botname = "𝗗𝘂𝗰𝗸 𝗔𝗠"
+global.textbot = "💚 𝘿𝙪𝙘𝙠, mᥲძᥱ ᥕі𝗍һ ᑲᥡ 𝐓𝐡𝐞 𝐀𝐌 𝐂𝐥𝐮𝐛."
+global.dev = "© 𝐌𝐚𝐝𝐞 𝐖𝐢𝐭𝐡 𝗔𝗠.𝗖𝗹𝘂𝗯"
+global.author = "© mᥲძᥱ ᥕі𝗍һ ᑲᥡ 𝗔𝗠 𝗖𝗹𝘂𝗯"
+global.etiqueta = "𝕮𝖑𝖚𝖇 𝖠𝖬"
+global.currency = "¢£ 𝖢𝗁𝗈𝖼𝗈𝖢𝗈𝖼𝗄𝗂𝖾𝗌"
+global.banner = "https://files.catbox.moe/dkmx9n.jpg"
+global.icono = "https://files.catbox.moe/ogn3ry.jpg"
 global.catalogo = fs.readFileSync('./lib/catalogo.jpg')
 
 
-global.group = "https://chat.whatsapp.com/HaKf6ezcwdbGzmH782eBal"
-global.community = "https://chat.whatsapp.com/G0kXqsteJFU74yrLtg79o6"
+global.group = ""
+global.community = ""
 global.channel = "https://whatsapp.com/channel/0029Vb64nWqLo4hb8cuxe23n"
-global.github = "https://github.com/The-King-Destroy/YukiBot-MD"
-global.gmail = "thekingdestroy507@gmail.com"
+global.github = "https://github.com/meado-learner/Duck"
+global.gmail = "minexdt@gmail.com"
 global.ch = {
 ch1: "120363401404146384@newsletter"
 }
