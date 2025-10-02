@@ -27,6 +27,6 @@ global.maxwarn = '2'
 let file = fileURLToPath(import.meta.url)
 watchFile(file, () => {
   unwatchFile(file)
-  console.log(chalk.redBright('Actualización detectada en duckconfig.js'))
+  console.log(chalk.redBright('Actualización detectada en settings.js'))
   import(`${file}?update=${Date.now()}`)
 })
