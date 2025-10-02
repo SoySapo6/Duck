@@ -411,7 +411,7 @@ let msg = {
     private: `🦆📩 Comando exclusivo para chats privados con el pato-bot. Nada de grupos por aquí!`,
     admin: `🦆🪶 Solo los patos administradores del grupo pueden usar *${global.comando}*. Ayudan a mantener la dinámica y la armonía del estanque.`,
     botAdmin: `🦆⚠️ Para que yo pueda ejecutar *${global.comando}* debo ser admin del estanque 🦆. Si no, no puedo realizar la acción.`,
-    unreg: `🦆❗ Aún no estás registrado, patito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg JTxs.666*`,
+    unreg: `🦆❗ Aún no estás registrado, patito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg PatoInsano.17*`,
     restrict: `🦆🚫 Esta función está deshabilitada por el administrador del estanque. No disponible para ningún pato por ahora.`
 }[type];
     if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))
