@@ -21,7 +21,7 @@ global.name_canal2 = '𝐒𝐨𝐲𝐌𝐚𝐲𝐜𝐨𝐥 <𝟑 • Actualizaci
 global.id_canal = '120363403739366547@newsletter'
 global.id_canal2 = '120363372883715167@newsletter'
 global.canal = ''
-
+global.currency = 'Maizes'
 
 global.apiadonix = 'https://apiadonix.kozow.com'
 global.mayapi = 'https://mayapi.ooguy.com'
