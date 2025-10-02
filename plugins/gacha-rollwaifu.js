@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { promises as fs } from 'fs';
-const FILE_PATH = '../storage/databases/characters.json';
+const FILE_PATH = './storage/databases/characters.json';
 
 async function loadCharacters() {
     try {
