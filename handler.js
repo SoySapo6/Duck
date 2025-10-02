@@ -369,17 +369,19 @@ export async function handler(chatUpdate) {
 }
 
 global.dfail = (type, m, conn) => {
+    const cuakStart = ["🦆 Cuaak!!", "🦆 Quack quack!", "🦆 ¡Cuaaaak!", "🦆 *Cuack-Cuack*"];
+    const randomCuak = cuakStart[Math.floor(Math.random() * cuakStart.length)];
     const msg = {
-        rowner: `> 〄 El comando *${global.comando}* solo puede ser usado por los creadores del bot.`,
-        owner: `> 〄 El comando *${global.comando}* solo puede ser usado por los desarrolladores del bot.`,
-        mods: `> 〄 El comando *${global.comando}* solo puede ser usado por los moderadores del bot.`,
-        premium: `> 〄 El comando *${global.comando}* solo puede ser usado por los usuarios premium.`,
-        group: `> 〄 El comando *${global.comando}* solo puede ser usado en grupos.`,
-        private: `> 〄 El comando *${global.comando}* solo puede ser usado al chat privado del bot.`,
-        admin: `> 〄 El comando *${global.comando}* solo puede ser usado por los administradores del grupo.`,
-        botAdmin: `> 〄 Para ejecutar el comando *${global.comando}* debo ser administrador del grupo.`,
-        restrict: `> 〄 Esta característica está desactivada.`
-    }[type];
+    rowner: `${randomCuak} El comando *${global.comando}* solo lo pueden usar los patos supremos (creadores del bot). 🦆`,
+    owner: `${randomCuak} Solo los patitos desarrolladores pueden usar *${global.comando}*. 👑🦆`,
+    mods: `${randomCuak} Este comando es exclusivo para los moderadores-pato. 🛡️🦆`,
+    premium: `${randomCuak} Solo los patos premium pueden usar *${global.comando}*. 💎🦆`,
+    group: `${randomCuak} Este comando solo funciona dentro del estanque (grupos). 🏞️🦆`,
+    private: `${randomCuak} Solo en privado puedes usar *${global.comando}* con el pato-bot. 📩🦆`,
+    admin: `${randomCuak} Solo los patitos administradores pueden usar *${global.comando}*. 🪶🦆`,
+    botAdmin: `${randomCuak} Para ejecutar *${global.comando}*, necesito ser admin del estanque. ⚠️🦆`,
+    restrict: `${randomCuak} Esta característica está desactivada. 🚫🦆`
+   }[type];
     if (msg) return conn.reply(m.chat, msg, m).then(() => m.react('✖️'));
 };
 
