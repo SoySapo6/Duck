@@ -22,7 +22,7 @@ function getSeriesNameByCharacter(characters, id) {
 }
 
 function formatTag(tag) {
-    return String(tag).trim().toLowerCase().replace(/\s+/g, '_');
+    return String(tag || '').trim().toLowerCase().replace(/\s+/g, '_');
 }
 
 async function buscarImagenDelirius(tag) {
@@ -30,15 +30,17 @@ async function buscarImagenDelirius(tag) {
     const urls = [
         `https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1&tags=${t}`,
         `https://danbooru.donmai.us/posts.json?tags=${t}`,
-        global.APIs?.gelbooru?.url + '/search/gelbooru?query=' + t
-    ];
+        global.APIs?.gelbooru?.url ? global.APIs.gelbooru.url + '/search/gelbooru?query=' + t : ''
+    ].filter(Boolean);
     for (const url of urls) {
         try {
             const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' } });
             const contentType = res.headers.get('content-type') || '';
             if (!res.ok || !contentType.includes('application/json')) continue;
-            const data = Array.isArray(await res.json()) ? await res.json() : (await res.json())?.posts || [];
-            const images = data.map(item => item.file_url || item.large_file_url || item.image || item.url).filter(u => typeof u === 'string' && /\.(jpe?g|png)$/.test(u));
+            const json = await res.json();
+            const data = Array.isArray(json) ? json : (json?.posts || []);
+            const images = data.map(item => item.file_url || item.large_file_url || item.image || item.url)
+                               .filter(u => typeof u === 'string' && /\.(jpe?g|png)$/.test(u));
             if (images.length) return images;
         } catch {}
     }
@@ -50,7 +52,8 @@ const handler = async (m, { conn, usedPrefix, command }) => {
     if (!dbChat[m.chat]) dbChat[m.chat] = {};
     const chatData = dbChat[m.chat];
     if (!chatData.gacha && m.isGroup) return m.reply('ꕥ Debes activar gacha en este grupo usando ' + usedPrefix + 'gacha on*');
-    const userData = global.db.data.users[m.sender];
+
+    const userData = global.db.data.users[m.sender] || {};
     const now = Date.now();
     const cooldown = 0xf * 0x3c * 0x3e8;
 
@@ -67,21 +70,33 @@ const handler = async (m, { conn, usedPrefix, command }) => {
     try {
         const charactersData = await loadCharacters();
         const allCharacters = flattenCharacters(charactersData);
+        if (!allCharacters.length) return m.reply('⚠︎ No hay personajes disponibles.');
+
         const char = allCharacters[Math.floor(Math.random() * allCharacters.length)];
+        if (!char || !char.id) return m.reply('⚠︎ El personaje seleccionado es inválido.');
+
         const charId = String(char.id);
         const seriesName = getSeriesNameByCharacter(charactersData, char.id);
-        const tag = formatTag(char.variants?.[0] || '');
+        const tag = formatTag(char.variants?.[0]);
         const images = await buscarImagenDelirius(tag);
-        const img = images[Math.floor(Math.random() * images.length)];
+        const img = images.length ? images[Math.floor(Math.random() * images.length)] : null;
+
         if (!img) return m.reply('ꕥ No se encontró imágenes para el personaje ' + char.name);
 
         if (!chatData.lastRolled) chatData.lastRolled = {};
         chatData.lastRolledCharacter = { id: charId, name: char.name, media: img };
 
-        const message = await conn.sendFile(m.chat, img, char.name + '.jpg', '❀ Nombre » *' + char.name + '*\n✰ Valor » *' + (Number(char.value) || 100).toLocaleString() + '*\n♡ Estado » *' + (char.user ? char.user.split('@')[0] : 'desconocido') + '*\n' + seriesName + '*', m);
+        const message = await conn.sendFile(
+            m.chat,
+            img,
+            (char.name || 'personaje') + '.jpg',
+            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${seriesName}*`,
+            m
+        );
 
         chatData.lastRolledMsgId = message?.key?.id || null;
         userData.lastRoll = now + cooldown;
+        global.db.data.users[m.sender] = userData;
     } catch (e) {
         await m.reply('⚠︎ Se ha producido un problema.\n' + e.message);
     }
