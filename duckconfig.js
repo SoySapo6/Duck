@@ -3,11 +3,13 @@ import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
 global.owner = [
-  ['', '-', true],
+  ['50493732693', '-', true],
   ['']
 ]
 
 global.vips = []
+global.sessions = "Sessions/Principal"
+global.jadi = "Sessions/SubBot"
 
 global.nombre2 = ''
 global.autor = ''
