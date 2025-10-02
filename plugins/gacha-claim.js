@@ -1,81 +1,100 @@
-import { promises as fs } from 'fs';
-const CHARACTERS_FILE = './storage/databases/characters.json';
+import { promises as fs } from 'fs'
+
+const charactersFilePath = './storage/database/characters.json'
+const haremFilePath = './storage/database/harem.json'
+const cooldowns = {}
 
 async function loadCharacters() {
-    try {
-        await fs.access(CHARACTERS_FILE);
-    } catch {
-        await fs.writeFile(CHARACTERS_FILE, '[]');
-    }
-    const data = await fs.readFile(CHARACTERS_FILE, 'utf-8');
-    try {
-        return JSON.parse(data) || [];
-    } catch {
-        return [];
-    }
+  const data = await fs.readFile(charactersFilePath, 'utf-8')
+  return JSON.parse(data)
 }
 
-function getCharacterById(id, characters) {
-    return characters.find(c => c.id === id) || null;
+async function saveCharacters(data) {
+  await fs.writeFile(charactersFilePath, JSON.stringify(data, null, 2), 'utf-8')
 }
 
-async function handler(m, { conn, usedPrefix, command }) {
-    const dbChats = global.db.data.chats;
-    if (!dbChats[m.chat]) dbChats[m.chat] = {};
-    const chatData = dbChats[m.chat];
-
-    if (!chatData.gacha && m.isGroup) {
-        return m.reply(`ꕥ Los comandos de *Gacha* están desactivados en este grupo.\n\nUn *administrador* puede activarlos con:\n» *${usedPrefix}gacha on*`);
-    }
-
-    const dbUsers = global.db.data.users;
-    const userData = dbUsers[m.sender] || {};
-    const now = Date.now();
-    const cooldown = 15 * 60 * 1000; // 15 minutos
-
-    if (userData.lastClaim && now < userData.lastClaim) {
-        const remaining = Math.ceil((userData.lastClaim - now) / 1000);
-        const minutes = Math.floor(remaining / 60);
-        const seconds = remaining % 60;
-        let text = '';
-        if (minutes > 0) text += `${minutes} minuto${minutes !== 1 ? 's ' : ' '}`;
-        text += `${seconds} segundo${seconds !== 1 ? 's' : ''}`;
-        return m.reply(`ꕥ Debes esperar ${text} para usar ${usedPrefix}${command}`);
-    }
-
-    try {
-        const allCharacters = await loadCharacters();
-        if (!allCharacters.length) return m.reply('⚠︎ No hay personajes disponibles.');
-
-        const char = allCharacters[Math.floor(Math.random() * allCharacters.length)];
-        if (!char || !char.name) return m.reply('⚠︎ El personaje seleccionado es inválido.');
-
-        const tag = (char.variants?.[0] || char.name).trim().toLowerCase().replace(/\s+/g, '_');
-
-        const img = char.img?.[0] || null;
-        if (!img) return m.reply(`ꕥ No se encontró imágenes para el personaje ${char.name}`);
-
-        chatData.lastRolledCharacter = { name: char.name, media: img };
-        chatData.lastRolledMsgId = (await conn.sendFile(
-            m.chat,
-            img,
-            `${char.name}.jpg`,
-            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${char.source || 'Libre'}`,
-            m
-        ))?.key?.id || null;
-
-        userData.lastClaim = now + cooldown;
-        dbUsers[m.sender] = userData;
-
-    } catch (e) {
-        await m.reply('⚠︎ Se ha producido un problema.\n' + e.message);
-    }
+async function loadHarem() {
+  try {
+    const data = await fs.readFile(haremFilePath, 'utf-8')
+    return JSON.parse(data) || {}
+  } catch {
+    return {}
+  }
 }
 
-handler.command = ['claim'];
-handler.owner = false;
-handler.mods = ['claim'];
-handler.register = true;
-handler.group = true;
+async function saveHarem(data) {
+  await fs.writeFile(haremFilePath, JSON.stringify(data, null, 2), 'utf-8')
+}
 
-export default handler;
+let handler = async (m, { conn }) => {
+  const userId = m.sender
+  const now = Date.now()
+
+  if (cooldowns[userId] && now < cooldowns[userId]) {
+    const remainingTime = Math.ceil((cooldowns[userId] - now) / 1000)
+    const min = Math.floor(remainingTime / 60)
+    const sec = remainingTime % 60
+    return conn.reply(m.chat,
+      `> 《✧》Debes esperar *${min} minutos y ${sec} segundos* para volver a utilizar *#c*`,
+      m
+    )
+  }
+
+  if (!m.quoted || !m.quoted.text.includes('ID: *')) {
+    return conn.reply(m.chat, '《✧》Cita un personaje válido enviado por el bot.', m)
+  }
+
+  const characterIdMatch = m.quoted.text.match(/ID:\s?\*(.+?)\*/)
+  if (!characterIdMatch) {
+    return conn.reply(m.chat, '《✧》 No se encontró un ID válido en el mensaje citado.', m)
+  }
+
+  const characterId = characterIdMatch[1]
+
+  try {
+    const characters = await loadCharacters()
+    const harem = await loadHarem()
+
+    const character = characters.find(c => c.id === characterId)
+    if (!character) {
+      return conn.reply(m.chat, '《✧》El personaje con ese ID no existe.', m)
+    }
+
+    if (character.user && character.user !== userId) {
+      return conn.reply(
+        m.chat,
+        `> 《✧》El personaje ya fue reclamado por @${character.user.split('@')[0]}`,
+        m,
+        { mentions: [character.user] }
+      )
+    }
+
+    // Reclamar
+    character.user = userId
+    character.status = 'Reclamado'
+
+    // Guardar en harem.json
+    if (!harem[userId]) harem[userId] = []
+    if (!harem[userId].some(p => p.id === character.id)) {
+      harem[userId].push(character)
+    }
+
+    await saveCharacters(characters)
+    await saveHarem(harem)
+
+    cooldowns[userId] = now + 30 * 60 * 1000
+
+    await conn.reply(m.chat, `✦ Has reclamado a *${character.name}* con éxito :D`, m)
+
+  } catch (err) {
+    console.error(err)
+    await conn.reply(m.chat, `✘ Error al reclamar: ${err.message}`, m)
+  }
+}
+
+handler.help = ['c']
+handler.tags = ['gacha']
+handler.command = ['c', 'claim', 'reclamar']
+handler.group = false
+handler.register = false
+export default handler
