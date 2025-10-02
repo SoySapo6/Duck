@@ -40,10 +40,6 @@ let handler = async (m, { conn }) => {
     )
   }
 
-  if (!m.quoted || !m.quoted.text.includes('ID: *')) {
-    return conn.reply(m.chat, '《✧》Cita un personaje válido enviado por el bot.', m)
-  }
-
   const characterIdMatch = m.quoted.text.match(/ID:\s?\*(.+?)\*/)
   if (!characterIdMatch) {
     return conn.reply(m.chat, '《✧》 No se encontró un ID válido en el mensaje citado.', m)
