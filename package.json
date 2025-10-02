@@ -18,8 +18,8 @@
   },
   "repository": {
   "type": "git",
-  "url": "git+https://github.com/The-King-Destroy/YukiBot-MD"
-  },
+  "url": "git+https://github.com/The-King-Destroy/YukiBot-MD.git"
+  },  
   "bugs": {
     "url": "https://github.com/meado-learner/Duck/issues"
   },
