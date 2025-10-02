@@ -35,22 +35,22 @@ let handler = async (m, { conn, usedPrefix }) => {
       } catch (e) { console.error(e) }
     }
 
-    let rolBot = conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub-Bot 🅑'
+    let rolBot = conn.user.jid == global.conn.user.jid ? '✰ 𝐏𝐫𝐢𝐧𝐜𝐢𝐩𝐚𝐥' : '❉ 𝐒𝐮𝐛𝐁𝐨𝐭'
 
     
-    let txt = `𝗛𝗼𝗹𝗮! 𝗦𝗼𝘆 *${botNameToShow}* (${rolBot})
+    let txt = `𝐇𝐨𝐥𝐚 𝐁𝐫𝐨!, 𝐒𝐨𝐲 *${botNameToShow}* (${rolBot})
 
-> ➭ 𝐇𝐨𝐫𝐚: ${moment.tz("America/Tegucigalpa").format("HH:mm:ss")}
-> ☆ 𝐅𝐞𝐜𝐡𝐚: ${moment.tz("America/Tegucigalpa").format("DD/MM/YYYY")}
-> ❏ 𝐀𝐜𝐭𝐢𝐯𝐢𝐝𝐚𝐝: ${uptimeStr}
+➜ ℍ𝕠𝕣𝕒 ᴾᵉʳᵘ: ${moment.tz("America/Lima").format("HH:mm:ss")}
+➜ 𝐅𝐞𝐜𝐡𝐚: ${moment.tz("America/Lima").format("DD/MM/YYYY")}
+➜ 𝐀𝐜𝐭𝐢𝐯𝐢𝐝𝐚𝐝: ${uptimeStr}
 
-━━━━━━━━━━━━━━\n`
+━━━━━━[ 🗿 ]━━━━━━\n`
 
     for (let tag in menu) {
-      txt += `> ┃「✎」 *${tag.toUpperCase()}*\n\n`
+      txt += `> ┃「✣」 *${tag.toUpperCase()}*\n\n`
       for (let plugin of menu[tag]) {
         for (let cmd of plugin.help) {
-          txt += `> ┃ ❐ *${usedPrefix + cmd}*\n`
+          txt += `> ┃ 🐕 *${usedPrefix + cmd}*\n`
         }
       }
       txt += `> ┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n\n`
