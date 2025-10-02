@@ -7,19 +7,18 @@ global.botNumber = ""
 
 global.owner = [
 "50493732693",
-"51921826291",
-""
+"51921826291"
 ]
 
-global.suittag = [""] 
+global.suittag = [] 
 global.prems = []
 
 
-global.libreria = "Baileys Multi Device"
-global.vs = "^1.8.2|Latest"
+global.libreria = "AdonixBailyes"
+global.vs = "Latest"
 global.nameqr = "Duck-MD"
-global.sessions = "Sessions/Principal"
-global.jadi = "Sessions/SubBot"
+global.sessions = "AMBots/Principal"
+global.jadi = "AMBots/SubBots"
 global.duckJadibts = true
 
 
@@ -36,11 +35,12 @@ global.catalogo = fs.readFileSync('./lib/catalogo.jpg')
 
 global.group = ""
 global.community = ""
-global.channel = "https://whatsapp.com/channel/0029Vb64nWqLo4hb8cuxe23n"
+global.channel = "https://whatsapp.com/channel/0029VbArz9fAO7RGy2915k3O"
 global.github = "https://github.com/meado-learner/Duck"
 global.gmail = "minexdt@gmail.com"
 global.ch = {
-ch1: "120363401404146384@newsletter"
+ch1: "120363372883715167@newsletter",
+ch2: "120363403739366547@newsletter"
 }
 
 
@@ -50,7 +50,9 @@ yupra: { url: "https://api.yupra.my.id", key: null },
 vreden: { url: "https://api.vreden.web.id", key: null },
 delirius: { url: "https://api.delirius.store", key: null },
 zenzxz: { url: "https://api.zenzxz.my.id", key: null },
-siputzx: { url: "https://api.siputzx.my.id", key: null }
+siputzx: { url: "https://api.siputzx.my.id", key: null },
+mayapi: { url: "https://mayapi.ooguy.com", key: "may-3d9ac5f2" },
+myapiadonix: { url: "https://apiadonix.kozow.com", key: "SoyMaycol<3" }
 }
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
