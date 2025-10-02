@@ -43,6 +43,9 @@ font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']
 })
+if (!existsSync("./tmp")) {
+  mkdirSync("./tmp");
+}
 protoType()
 serialize()
 
