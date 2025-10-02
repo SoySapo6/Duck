@@ -1,7 +1,7 @@
 {
-  "name": "DuckAM",
+  "name": "DogMD",
   "version": "1.0.0",
-  "description": "Wa - bot Multi Device",
+  "description": "DogMD - Perritos Insanos",
   "main": "index.js",
   "type": "module",
   "directories": {
@@ -12,16 +12,16 @@
   "scripts": {
     "start": "node index.js"
   },
-  "homepage": "https://github.com",
+  "homepage": "https://github.com/SoySapo6",
   "author": {
-    "name": "Ado"
+    "name": "SoyMaycol"
   },
   "repository": {
   "type": "git",
-  "url": "git+https://github.com/The-King-Destroy/YukiBot-MD.git"
+  "url": "git+https://github.com/SoySapo6/DogMD.git"
   },  
   "bugs": {
-    "url": "https://github.com/meado-learner/Duck/issues"
+    "url": "https://github.com/SoySapo6/DogMD/issues"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
