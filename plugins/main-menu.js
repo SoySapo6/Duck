@@ -20,8 +20,8 @@ let handler = async (m, { conn, usedPrefix }) => {
     let seconds = Math.floor(uptimeSec % 60)
     let uptimeStr = `${hours}h ${minutes}m ${seconds}s`
 
-    let botNameToShow = global.botname || ""
-    let bannerUrl = global.banner || ""
+    let botNameToShow = global.nombre || ""
+    let bannerUrl = global.img || ""
     let videoUrl = null
 
     const senderBotNumber = conn.user.jid.split('@')[0]
@@ -71,7 +71,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     } else {
       await conn.sendMessage(
         m.chat,
-        { image: { url: global.banner }, caption: txt },
+        { image: { url: global.img }, caption: txt },
         { quoted: m }
       )
     }
