@@ -462,15 +462,15 @@ export async function handler(chatUpdate) {
 
 global.dfail = (type, m, conn, usedPrefix) => {
 let msg = {
-    rowner: `🐶💦 *Guau guau!* Atención: el comando *${global.comando}* solo puede ser usado por los perros supremos (Creador del bot). Ningún otro perro puede tocarlo!`,
-    owner: `🐶👑 Solo los perros desarrolladores pueden usar *${global.comando}*. Incluye poderes especiales de gestión del parque 🐕.`,
+    rowner: `🐶💦 *Alerta Perruna xD* Oye tu humano, el comando *${global.comando}* solo puede ser usado por los perros supremos (Creador del bot). Ningún otro perro puede tocarlo, Al menos que sea el Pana Miguel.`,
+    owner: `🐶👑 Solo los perros desarrolladores pueden usar *${global.comando}*. Incluye poderes especiales de gestión del parque 🐕, Y me ayudas a buscar a Doge?.`,
     mods: `🐶🛡️ Comando exclusivo para los moderadores-perro. Ellos mantienen el orden y protegen el parque 🐕✨.`,
     premium: `🐶💎 Perros Premium, este comando es solo para ustedes! Disfruten de poderes y comandos extra que los perritos normales no pueden usar.`,
     group: `🐶🐾 Este comando solo se puede usar en el parque (grupo). Los patios privados no tienen acceso.`,
     private: `🐶📩 Comando exclusivo para chats privados con el perro-bot. Nada de grupos por aquí!`,
-    admin: `🐶🪶 Solo los perros administradores del grupo pueden usar *${global.comando}*. Ayudan a mantener la dinámica y la armonía del parque.`,
-    botAdmin: `🐶⚠️ Para que yo pueda ejecutar *${global.comando}* debo ser admin del parque 🐕. Si no, no puedo realizar la acción.`,
-    unreg: `🐶❗ Aún no estás registrado, perrito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg Fido.3*`,
+    admin: `🐶🪶 Solo los perros administradores del grupo pueden usar *${global.comando}*. Ayudan a mantener la dinámica y la armonía del parque, Me ire a por Tung Tung Sahur >:)`,
+    botAdmin: `🐶⚠️ Para que yo pueda ejecutar *${global.comando}* debo ser admin del parque 🐕. Si no, no puedo realizar la acción uwu.`,
+    unreg: `🐶❗ Aún no estás registrado, perrito! Para usar los comandos debes completar tu registro.\n\nUsa: */reg nombre.edad*\nEjemplo: */reg Cheems.5*\nYa no hay camino que recorra tu pasado 🗣️🔥`,
     restrict: `🐶🚫 Esta función está deshabilitada por el administrador del parque. No disponible para ningún perro por ahora.`
 }[type];
     if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))
