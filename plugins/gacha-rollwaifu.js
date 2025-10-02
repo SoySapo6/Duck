@@ -6,19 +6,14 @@ async function loadCharacters() {
     try {
         await fs.access(FILE_PATH);
     } catch {
-        await fs.writeFile(FILE_PATH, '{}');
+        await fs.writeFile(FILE_PATH, '[]');
     }
     const data = await fs.readFile(FILE_PATH, 'utf-8');
-    return JSON.parse(data);
-}
-
-function flattenCharacters(characters) {
-    return Object.values(characters).flatMap(entry => Array.isArray(entry.characters) ? entry.characters : []);
-}
-
-function getSeriesNameByCharacter(characters, id) {
-    return Object.entries(characters)
-        .find(([_, entry]) => Array.isArray(entry.characters) && entry.characters.some(c => String(c.id) === String(id)))?.[1]?.name || 'Desconocido';
+    try {
+        return JSON.parse(data) || [];
+    } catch {
+        return [];
+    }
 }
 
 function formatTag(tag) {
@@ -68,29 +63,25 @@ const handler = async (m, { conn, usedPrefix, command }) => {
     }
 
     try {
-        const charactersData = await loadCharacters();
-        const allCharacters = flattenCharacters(charactersData);
+        const allCharacters = await loadCharacters();
         if (!allCharacters.length) return m.reply('⚠︎ No hay personajes disponibles.');
 
         const char = allCharacters[Math.floor(Math.random() * allCharacters.length)];
-        if (!char || !char.id) return m.reply('⚠︎ El personaje seleccionado es inválido.');
+        if (!char || !char.name) return m.reply('⚠︎ El personaje seleccionado es inválido.');
 
-        const charId = String(char.id);
-        const seriesName = getSeriesNameByCharacter(charactersData, char.id);
-        const tag = formatTag(char.variants?.[0]);
+        const tag = formatTag(char.variants?.[0] || char.name);
         const images = await buscarImagenDelirius(tag);
-        const img = images.length ? images[Math.floor(Math.random() * images.length)] : null;
+        const img = images.length ? images[Math.floor(Math.random() * images.length)] : (char.img?.[0] || null);
 
         if (!img) return m.reply('ꕥ No se encontró imágenes para el personaje ' + char.name);
 
-        if (!chatData.lastRolled) chatData.lastRolled = {};
-        chatData.lastRolledCharacter = { id: charId, name: char.name, media: img };
+        chatData.lastRolledCharacter = { name: char.name, media: img };
 
         const message = await conn.sendFile(
             m.chat,
             img,
             (char.name || 'personaje') + '.jpg',
-            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${seriesName}*`,
+            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${char.source || 'Desconocido'}`,
             m
         );
 
