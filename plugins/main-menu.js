@@ -47,13 +47,13 @@ let handler = async (m, { conn, usedPrefix }) => {
 ━━━━━━━━━━━━━━\n`
 
     for (let tag in menu) {
-      txt += `┃「✎」 *${tag.toUpperCase()}*\n\n`
+      txt += `> ┃「✎」 *${tag.toUpperCase()}*\n\n`
       for (let plugin of menu[tag]) {
         for (let cmd of plugin.help) {
           txt += `> ┃ ❐ *${usedPrefix + cmd}*\n`
         }
       }
-      txt += `┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n\n`
+      txt += `> ┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n\n`
     }
 
     if (videoUrl) {
