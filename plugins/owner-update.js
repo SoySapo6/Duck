@@ -1,7 +1,7 @@
 import { execSync } from 'child_process'
 
-var handler = async (m, { conn, text, isROwner }) => {
-if (!isROwner) return
+var handler = async (m, { conn, text, isMods }) => {
+if (!isMods) return
 await m.react('🕒')
 try {
 const stdout = execSync('git pull' + (m.fromMe && text ? ' ' + text : ''));
