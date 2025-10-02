@@ -12,6 +12,65 @@ const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function (
     clearTimeout(this)
     resolve()
 }, ms))
+
+const defaultUser = {
+    exp: 0,
+    coin: 10,
+    joincount: 1,
+    diamond: 3,
+    lastadventure: 0,
+    health: 100,
+    lastclaim: 0,
+    lastcofre: 0,
+    lastdiamantes: 0,
+    lastcode: 0,
+    lastduel: 0,
+    lastpago: 0,
+    lastmining: 0,
+    lastcodereg: 0,
+    muto: false,
+    crime: 0,
+    registered: false,
+    genre: '',
+    birth: '',
+    marry: '',
+    description: '',
+    packstickers: null,
+    name: '',
+    age: -1,
+    regTime: -1,
+    afk: -1,
+    afkReason: '',
+    banned: false,
+    useDocument: false,
+    bank: 0,
+    level: 0,
+    role: 'Nuv',
+    premium: false,
+    premiumTime: 0,
+}
+
+const defaultChat = {
+    isBanned: false,
+    sAutoresponder: '',
+    welcome: true,
+    autolevelup: false,
+    autoresponder: false,
+    delete: false,
+    autoAceptar: false,
+    autoRechazar: false,
+    detect: true,
+    antiBot: false,
+    antiBot2: false,
+    modoadmin: false,
+    antiLink: true,
+    antifake: false,
+    reaction: false,
+    nsfw: false,
+    expired: 0,
+    antiLag: false,
+    per: [],
+}
  
 export async function handler(chatUpdate) {
     this.msgqueque = this.msgqueque || []
