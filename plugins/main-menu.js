@@ -44,13 +44,13 @@ let handler = async (m, { conn, usedPrefix }) => {
 > ☆ 𝐅𝐞𝐜𝐡𝐚: ${moment.tz("America/Tegucigalpa").format("DD/MM/YYYY")}
 > ❏ 𝐀𝐜𝐭𝐢𝐯𝐢𝐝𝐚𝐝: ${uptimeStr}
 
-┏━━━━━━━━━━━━━━\n`
+━━━━━━━━━━━━━━\n`
 
     for (let tag in menu) {
       txt += `┃「✎」 *${tag.toUpperCase()}*\n\n`
       for (let plugin of menu[tag]) {
         for (let cmd of plugin.help) {
-          txt += `>┃ ❐ *${usedPrefix + cmd}*\n`
+          txt += `> ┃ ❐ *${usedPrefix + cmd}*\n`
         }
       }
       txt += `┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n\n`
