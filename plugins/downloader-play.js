@@ -18,7 +18,7 @@ txt += `> _Duración_ : *${timestamp || '❌'}*\n`;
 txt += `> _Visitas_ : *${views.toLocaleString() || '❌'}*\n`;
 txt += `> _Link_ : *https://www.youtube.com/watch?v=${videoId}*\n`;
 
-await conn.sendButton2(m.chat, txt, author, thumbnail, [
+await conn.sendButton2(m.chat, txt, thumbnail, [
 ['Audio', `${usedPrefix}ytmp3 ${url}`],
 ['Video', `${usedPrefix}ytmp4 ${url}`]
 ], null, [['Canal', canal]], m);
