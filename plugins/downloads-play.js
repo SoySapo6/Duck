@@ -11,21 +11,22 @@ const search = await yts(query)
 const result = videoMatch ? search.videos.find(v => v.videoId === videoMatch[1]) || search.all[0] : search.all[0]
 if (!result) throw 'ꕥ No se encontraron resultados.'
 const { title, thumbnail, timestamp, views, ago, url, author, seconds } = result
-if (seconds > 1800) throw '⚠ El video supera el límite de duración (10 minutos).'
+if (seconds > 2400) throw '⚠ El video supera el límite de duración (40 minutos).\n> ✧ Esto se limita para evitar saturación y mantener el bot estable.'
 const vistas = formatViews(views)
-const info = `「✦」Descargando *<${title}>*\n\n> ❑ Canal » *${author.name}*\n> ♡ Vistas » *${vistas}*\n> ✧︎ Duración » *${timestamp}*\n> ☁︎ Publicado » *${ago}*\n> ➪ Link » ${url}`
+const info = `「✿」 Descargando *<${title}>*\n\n> ❑ Canal » *${author.name}*\n> ☆ Vistas » *${vistas}*\n> ✧︎ Duración » *${timestamp}*\n> ❏ Publicado » *${ago}*\n> ➭ Link » ${url}`
 const thumb = (await conn.getFile(thumbnail)).data
 await conn.sendMessage(m.chat, { image: thumb, caption: info }, { quoted: m })
+
 if (['play', 'yta', 'ytmp3', 'playaudio'].includes(command)) {
 const audio = await getAud(url)
 if (!audio?.url) throw '⚠ No se pudo obtener el audio.'
-m.reply(`> ❀ *Audio procesado. Servidor:* \`${audio.api}\``)
+m.reply(`> ╏✿ *_Audio obtenido._ Servidor:* \`${audio.api}\``)
 await conn.sendMessage(m.chat, { audio: { url: audio.url }, fileName: `${title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
 await m.react('✔️')
 } else if (['play2', 'ytv', 'ytmp4', 'mp4'].includes(command)) {
 const video = await getVid(url)
 if (!video?.url) throw '⚠ No se pudo obtener el video.'
-m.reply(`> ❀ *Vídeo procesado. Servidor:* \`${video.api}\``)
+m.reply(`> ╏✿ *_Video obtenido._ Servidor:* \`${video.api}\``)
 await conn.sendFile(m.chat, video.url, `${title}.mp4`, `> ❀ ${title}`, m)
 await m.react('✔️')
 }} catch (e) {
@@ -39,8 +40,11 @@ handler.group = true
 
 export default handler
 
+
 async function getAud(url) {
 const apis = [
+{ api: 'MayAPI', endpoint: `${global.APIs.mayapi.url}/ytdl?url=${encodeURIComponent(url)}&type=mp4&apikey=${global.APIs.mayapi.key}`, extractor: res => res.result?.url },
+{ api: 'ApiAdonix', endpoint: `${global.APIs.apiadonix.url}/download/ytmp3?apikey=${global.APIs.apiadonix.key}&url=${encodeURIComponent(url)}`, extractor: res => res.data?.url },
 { api: 'Xyro', endpoint: `${global.APIs.xyro.url}/download/youtubemp3?url=${encodeURIComponent(url)}`, extractor: res => res.result?.dl },
 { api: 'Yupra', endpoint: `${global.APIs.yupra.url}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`, extractor: res => res.resultado?.enlace },
 { api: 'Vreden', endpoint: `${global.APIs.vreden.url}/api/ytmp3?url=${encodeURIComponent(url)}`, extractor: res => res.result?.download?.url },
@@ -50,8 +54,13 @@ const apis = [
 ]
 return await fetchFromApis(apis)
 }
+
+
 async function getVid(url) {
 const apis = [
+
+{ api: 'MayAPI', endpoint: `${global.APIs.mayapi.url}/ytdl?url=${encodeURIComponent(url)}&type=mp4&apikey=${global.APIs.mayapi.key}`, extractor: res => res.result?.url },
+{ api: 'ApiAdonix', endpoint: `${global.APIs.apiadonix.url}/download/ytmp4?apikey=${global.APIs.apiadonix.key}&url=${encodeURIComponent(url)}`, extractor: res => res.data?.url },
 { api: 'Xyro', endpoint: `${global.APIs.xyro.url}/download/youtubemp4?url=${encodeURIComponent(url)}&quality=360`, extractor: res => res.result?.dl },
 { api: 'Yupra', endpoint: `${global.APIs.yupra.url}/api/downloader/ytmp4?url=${encodeURIComponent(url)}`, extractor: res => res.resultado?.formatos?.[0]?.url },
 { api: 'Vreden', endpoint: `${global.APIs.vreden.url}/api/ytmp4?url=${encodeURIComponent(url)}`, extractor: res => res.result?.download?.url },
@@ -61,6 +70,7 @@ const apis = [
 ]
 return await fetchFromApis(apis)
 }
+
 async function fetchFromApis(apis) {
 for (const { api, endpoint, extractor } of apis) {
 try {
@@ -75,6 +85,7 @@ await new Promise(resolve => setTimeout(resolve, 500))
 }
 return null
 }
+
 function formatViews(views) {
 if (views === undefined) return "No disponible"
 if (views >= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B (${views.toLocaleString()})`
