@@ -36,7 +36,7 @@ console.log(chalk.magentaBright('\n❀ Iniciando...'))
 say('DogMD', {
 font: 'BLOCK',
 align: 'center',
-gradient: ['orange', 'white']
+gradient: ['grey', 'white']
 })
 say('Hecho por SoyMaycol <3', {
 font: 'console',
