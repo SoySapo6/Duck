@@ -124,10 +124,10 @@ export async function handler(chatUpdate) {
     }
 
     const conn = m.conn || global.conn;
-    const isROwner = global.owner.some(([number]) => number && number.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender);
+    const isROwner = (global.owner && global.owner.some(([number]) => number && number.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender)) || false;
     const isOwner = isROwner || m.fromMe;
-    const isMods = isROwner || global.mods.some(v => v && v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender);
-    const isPrems = isROwner || global.prems.some(v => v && v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender) || user.premium;
+    const isMods = isROwner || (global.mods && global.mods.some(v => v && v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender)) || false;
+    const isPrems = isROwner || (global.prems && global.prems.some(v => v && v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender)) || false || user.premium;
 
     if (opts["nyimak"]) return;
     if (!m.fromMe && !isMods && settings.self) return;
@@ -138,7 +138,7 @@ export async function handler(chatUpdate) {
     if (chat.primaryBot && chat.primaryBot !== this.user.jid && !m.text.startsWith((prefixRegex.source || '.') + 'delprimary')) {
         const participants = m.isGroup ? (await this.groupMetadata(m.chat).catch(() => ({ participants: [] }))).participants : [];
         const primaryBotInGroup = participants.some(p => p.jid === chat.primaryBot);
-        const primaryBotConn = global.conns.find(conn => conn.user.jid === chat.primaryBot && conn.ws.socket?.readyState !== ws.CLOSED);
+        const primaryBotConn = global.conns ? global.conns.find(conn => conn.user.jid === chat.primaryBot && conn.ws.socket?.readyState !== ws.CLOSED) : null;
         if (primaryBotConn && primaryBotInGroup) return;
         chat.primaryBot = null;
     }
