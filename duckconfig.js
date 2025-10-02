@@ -11,9 +11,9 @@ global.vips = []
 global.sessions = "Sessions/Principal"
 global.jadi = "Sessions/SubBot"
 
-global.nombre2 = ''
-global.autor = ''
-global.nombre = 'Duck AM'
+global.nombre2 = '⏤͟͟͞͞☆𝗗𝘂𝗰𝗸, mᥲძᥱ ᥕі𝗍һ 𝗔𝗠.𝗖𝗹𝘂𝗯'
+global.autor = 'CLUB.AM'
+global.nombre = '𝐃𝐮𝐜𝐤 𝐀𝐌'
 global.img = 'https://files.catbox.moe/0hfvjz.jpg'
 
 global.name_canal = ''
