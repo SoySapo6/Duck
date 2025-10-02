@@ -71,7 +71,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     } else {
       await conn.sendMessage(
         m.chat,
-        { image: { url: global.michipg }, caption: txt },
+        { image: { url: global.banner }, caption: txt },
         { quoted: m }
       )
     }
