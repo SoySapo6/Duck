@@ -14,6 +14,7 @@ global.jadi = "Sessions/SubBot"
 global.nombre2 = ''
 global.autor = ''
 global.nombre = ''
+global.img = ''
 
 global.name_canal = ''
 global.id_canal = ''
