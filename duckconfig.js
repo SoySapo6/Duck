@@ -19,7 +19,8 @@ global.img = 'https://files.catbox.moe/0hfvjz.jpg'
 global.name_canal = ''
 global.id_canal = ''
 global.canal = ''
-
+global.apiadonix = 'https://apiadonix.kozow.com'
+global.mayapi = 'https://mayapi.ooguy.com'
 
 global.multiplier = 69
 global.maxwarn = '2'
