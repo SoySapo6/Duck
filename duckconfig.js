@@ -2,26 +2,21 @@ import { watchFile, unwatchFile } from 'fs'
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
-global.owner = [
-  ['50493732693', '-', true],
-  ['51921826291']
-]
+global.owner = ['51921826291','SoyMaycol',true];
 
 global.vips = []
-global.sessions = "Sessions/Principal"
-global.jadi = "Sessions/SubBot"
+global.sessions = "Doges/Principal"
+global.jadi = "Doges/SubBots"
 
-global.nombre2 = '⏤͟͟͞͞☆𝗗𝘂𝗰𝗸, mᥲძᥱ ᥕі𝗍һ 𝗔𝗠.𝗖𝗹𝘂𝗯'
-global.autor = 'CLUB.AM'
-global.nombre = '𝐃𝐮𝐜𝐤 𝐀𝐌'
+global.nombre2 = '𝐃𝐨𝐠 ᴮʸ ᴹᵃʸᶜᵒˡ'
+global.author = '𝙃𝙚𝙘𝙝𝙤 𝙥𝙤𝙧 𝙎𝙤𝙮𝙈𝙖𝙮𝙘𝙤𝙡 <3'
+global.nombre = '𝐃𝐨𝐠 ᴹᴰ'
 global.img = 'https://files.catbox.moe/0hfvjz.jpg'
 
-global.name_canal = 'Support Ado ^°^'
-global.name_canal2 = '𝐒𝐨𝐲𝐌𝐚𝐲𝐜𝐨𝐥 <𝟑 • Actualizaciones'
-global.id_canal = '120363403739366547@newsletter'
-global.id_canal2 = '120363372883715167@newsletter'
-global.canal = ''
-global.currency = 'Maizes'
+global.name_canal = '𝐒𝐨𝐲𝐌𝐚𝐲𝐜𝐨𝐥 <𝟑 • Actualizaciones'
+global.id_canal = '120363372883715167@newsletter'
+global.canal = 'https://whatsapp.com/channel/0029VayXJte65yD6LQGiRB0R'
+global.currency = 'DogeCoins'
 
 global.apiadonix = 'https://apiadonix.kozow.com'
 global.mayapi = 'https://mayapi.ooguy.com'
