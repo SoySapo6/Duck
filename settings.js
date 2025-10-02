@@ -11,7 +11,7 @@ global.jadi = "Doges/SubBots"
 global.nombre2 = '𝐃𝐨𝐠 ᴮʸ ᴹᵃʸᶜᵒˡ'
 global.author = '𝙃𝙚𝙘𝙝𝙤 𝙥𝙤𝙧 𝙎𝙤𝙮𝙈𝙖𝙮𝙘𝙤𝙡 <3'
 global.nombre = '𝐃𝐨𝐠 ᴹᴰ'
-global.img = 'https://files.catbox.moe/0hfvjz.jpg'
+global.img = 'https://mayapi.ooguy.com/dl/DogMD-Icono'
 
 global.name_canal = '𝐒𝐨𝐲𝐌𝐚𝐲𝐜𝐨𝐥 <𝟑 • Actualizaciones'
 global.id_canal = '120363372883715167@newsletter'
