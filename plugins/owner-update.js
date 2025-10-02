@@ -15,9 +15,9 @@ let handler = async (m, { conn }) => {
   })
 }
 
-handler.help = ['gitpull']
+handler.help = ['fix']
 handler.tags = ['owner']
-handler.command = /^gitpull$/i
+handler.command = ['fix']
 handler.rowner = true
 
 export default handler
