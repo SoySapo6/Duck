@@ -20,7 +20,7 @@ global.vs = "^1.8.2|Latest"
 global.nameqr = "Duck-MD"
 global.sessions = "Sessions/Principal"
 global.jadi = "Sessions/SubBot"
-global.yukiJadibts = true
+global.duckJadibts = true
 
 
 global.botname = "𝗗𝘂𝗰𝗸 𝗔𝗠"
