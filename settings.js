@@ -7,7 +7,8 @@ global.botNumber = ""
 
 global.owner = [
 "50493732693",
-"51921826291"
+"51921826291",
+"180650938249287"
 ]
 
 global.suittag = [] 
