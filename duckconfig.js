@@ -16,17 +16,21 @@ global.autor = 'CLUB.AM'
 global.nombre = '𝐃𝐮𝐜𝐤 𝐀𝐌'
 global.img = 'https://files.catbox.moe/0hfvjz.jpg'
 
-global.name_canal = 'Support Ado ^°^'
-global.name_canal2 = '𝐒𝐨𝐲𝐌𝐚𝐲𝐜𝐨𝐥 <𝟑 • Actualizaciones'
-global.id_canal = '120363403739366547@newsletter'
-global.id_canal2 = '120363372883715167@newsletter'
+const canales = [
+  { id: '120363403739366547@newsletter', name: 'Support Ado ^°^' },
+  { id: '120363372883715167@newsletter', name: '𝐒𝐨𝐲𝐌𝐚𝐲𝐜𝐨𝐥 <𝟑 • Actualizaciones' }
+]
+
+const canalSeleccionado = canales[Math.floor(Math.random() * canales.length)]
+
+global.id_canal = canalSeleccionado.id
+global.name_canal = canalSeleccionado.name
 global.canal = ''
 global.apiadonix = 'https://apiadonix.kozow.com'
 global.mayapi = 'https://mayapi.ooguy.com'
 
 global.multiplier = 69
 global.maxwarn = '2'
-
 
 let file = fileURLToPath(import.meta.url)
 watchFile(file, () => {
