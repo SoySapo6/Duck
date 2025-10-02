@@ -5,7 +5,7 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
   if (!text) 
     return conn.reply(
       m.chat, 
-      '「✿」 _Ingresa el nombre de lo que quieres buscar_', 
+      '「✿」 Ingresa el nombre de lo que quieres buscar', 
       m
     );
 
@@ -31,7 +31,7 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
   txt += `> ✿ Publicado » *${ago || ''}*\n`;
   txt += `> ✎ Link » https://youtube.com/watch?v=${videoId}`;
 
-  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: txt });
+  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: txt }, m);
 
   try {
     if (command === 'play' || command === 'play2') {
@@ -39,13 +39,9 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
        
         let audioUrl;
         let apiName = '';
-        if (global.apiadonix) {
-          apiName = 'Adonix API';
-          const endpoint = `${global.apiadonix}/download/ytmp3?apikey=Adofreekey&url=${encodeURIComponent(url)}`;
-          let res = await fetch(endpoint);
-          let json = await res.json();
-          audioUrl = json.data?.url;
-        } else if (global.mayapi) {
+
+        
+        if (global.mayapi) {
           apiName = 'MayAPI';
           const endpoint = `${global.mayapi}/ytdl?url=${encodeURIComponent(url)}&type=mp3&apikey=may-3d9ac5f2`;
           let res = await fetch(endpoint);
@@ -53,33 +49,38 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
           audioUrl = json.result?.url;
         }
 
+        
+        if (!audioUrl && global.apiadonix) {
+          apiName = 'Adonix API';
+          const endpoint = `${global.apiadonix}/download/ytmp3?apikey=Adofreekey&url=${encodeURIComponent(url)}`;
+          let res = await fetch(endpoint);
+          let json = await res.json();
+          audioUrl = json.data?.url;
+        }
+
         if (!audioUrl) 
           return conn.reply(
             m.chat, 
-            '「✦」 Ocurrio un error, no se pudo obtener el audio.', 
+            '「✦」 Ocurrió un error, no se pudo obtener el audio.', 
             m
           );
 
         await conn.sendMessage(m.chat, { 
-          text: `「❑」 *Server:* *${apiName}*`
-        });
+          text: `> ❑ *Server:* *${apiName}*`
+        }, m);
 
         await conn.sendMessage(m.chat, { 
           audio: { url: audioUrl }, 
           mimetype: 'audio/mpeg', 
           ptt: false 
-        });
+        }, m);
       } else {
        
         let videoUrl;
         let apiName = '';
-        if (global.apiadonix) {
-          apiName = 'Adonix API';
-          const endpoint = `${global.apiadonix}/download/ytmp4?apikey=Adofreekey&url=${encodeURIComponent(url)}`;
-          let res = await fetch(endpoint);
-          let json = await res.json();
-          videoUrl = json.data?.url;
-        } else if (global.mayapi) {
+
+      
+        if (global.mayapi) {
           apiName = 'MayAPI';
           const endpoint = `${global.mayapi}/ytdl?url=${encodeURIComponent(url)}&type=mp4&apikey=may-3d9ac5f2`;
           let res = await fetch(endpoint);
@@ -87,18 +88,27 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
           videoUrl = json.result?.url;
         }
 
+        
+        if (!videoUrl && global.apiadonix) {
+          apiName = 'Adonix API';
+          const endpoint = `${global.apiadonix}/download/ytmp4?apikey=Adofreekey&url=${encodeURIComponent(url)}`;
+          let res = await fetch(endpoint);
+          let json = await res.json();
+          videoUrl = json.data?.url;
+        }
+
         if (!videoUrl) 
           return conn.reply(
             m.chat, 
-            '「✦」 Ocurrio un error, no se pudo obtener el video.', 
+            '「✦」 Ocurrió un error, no se pudo obtener el video.', 
             m
           );
 
         await conn.sendMessage(m.chat, { 
           text: `> ❑ *Server:* *${apiName}*`
-        });
+        }, m);
 
-        await conn.sendMessage(m.chat, { video: { url: videoUrl }, caption: `「✦」 *${title}*` });
+        await conn.sendMessage(m.chat, { video: { url: videoUrl }, caption: `「✦」 *${title}*` }, m);
       }
     }
     await m.react('✅');
