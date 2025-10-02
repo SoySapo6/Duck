@@ -1,5 +1,5 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1'
-import './duckconfig.js'
+import './settings.js'
 import './plugins/_fakeReply.js'
 import cfonts from 'cfonts'
 import { createRequire } from 'module'
@@ -33,12 +33,12 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
 console.log(chalk.magentaBright('\n❀ Iniciando...'))
-say('Duck AM', {
+say('DogMD', {
 font: 'BLOCK',
 align: 'center',
-gradient: ['green', 'white']
+gradient: ['orange', 'white']
 })
-say('¡Hecho por el AM Club!', {
+say('Hecho por SoyMaycol <3', {
 font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']
