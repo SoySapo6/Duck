@@ -43,7 +43,7 @@ export default handler
 
 async function getAud(url) {
 const apis = [
-{ api: 'MayAPI', endpoint: `${global.APIs.mayapi.url}/ytdl?url=${encodeURIComponent(url)}&type=mp4&apikey=${global.APIs.mayapi.key}`, extractor: res => res.result?.url },
+{ api: 'MayAPI', endpoint: `${global.APIs.mayapi.url}/ytdl?url=${encodeURIComponent(url)}&type=mp3&apikey=${global.APIs.mayapi.key}`, extractor: res => res.result?.url },
 { api: 'ApiAdonix', endpoint: `${global.APIs.apiadonix.url}/download/ytmp3?apikey=${global.APIs.apiadonix.key}&url=${encodeURIComponent(url)}`, extractor: res => res.data?.url },
 { api: 'Xyro', endpoint: `${global.APIs.xyro.url}/download/youtubemp3?url=${encodeURIComponent(url)}`, extractor: res => res.result?.dl },
 { api: 'Yupra', endpoint: `${global.APIs.yupra.url}/api/downloader/ytmp3?url=${encodeURIComponent(url)}`, extractor: res => res.resultado?.enlace },
