@@ -1,100 +1,88 @@
-import fetch from 'node-fetch';
-import { promises as fs } from 'fs';
-const FILE_PATH = './storage/databases/characters.json';
+// Codigo hecho por SoyMaycol <3
+import { promises as fs } from 'fs'
+
+const charactersFilePath = './storage/database/characters.json'
+const haremFilePath = './storage/database/harem.json'
+
+const cooldowns = {}
 
 async function loadCharacters() {
-    try {
-        await fs.access(FILE_PATH);
-    } catch {
-        await fs.writeFile(FILE_PATH, '[]');
-    }
-    const data = await fs.readFile(FILE_PATH, 'utf-8');
-    try {
-        return JSON.parse(data) || [];
-    } catch {
-        return [];
-    }
+  const data = await fs.readFile(charactersFilePath, 'utf-8')
+  return JSON.parse(data)
 }
 
-function formatTag(tag) {
-    return String(tag || '').trim().toLowerCase().replace(/\s+/g, '_');
+async function saveCharacters(characters) {
+  await fs.writeFile(charactersFilePath, JSON.stringify(characters, null, 2), 'utf-8')
 }
 
-async function buscarImagenDelirius(tag) {
-    const t = formatTag(tag);
-    const urls = [
-        `https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1&tags=${t}`,
-        `https://danbooru.donmai.us/posts.json?tags=${t}`,
-        global.APIs?.gelbooru?.url ? global.APIs.gelbooru.url + '/search/gelbooru?query=' + t : ''
-    ].filter(Boolean);
-    for (const url of urls) {
-        try {
-            const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' } });
-            const contentType = res.headers.get('content-type') || '';
-            if (!res.ok || !contentType.includes('application/json')) continue;
-            const json = await res.json();
-            const data = Array.isArray(json) ? json : (json?.posts || []);
-            const images = data.map(item => item.file_url || item.large_file_url || item.image || item.url)
-                               .filter(u => typeof u === 'string' && /\.(jpe?g|png)$/.test(u));
-            if (images.length) return images;
-        } catch {}
-    }
-    return [];
+async function loadHarem() {
+  try {
+    const data = await fs.readFile(haremFilePath, 'utf-8')
+    const parsed = JSON.parse(data)
+    return typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}
+  } catch {
+    return {}
+  }
 }
 
-const handler = async (m, { conn, usedPrefix, command }) => {
-    const dbChat = global.db.data.chats;
-    if (!dbChat[m.chat]) dbChat[m.chat] = {};
-    const chatData = dbChat[m.chat];
-    if (!chatData.gacha && m.isGroup) return m.reply('ꕥ Debes activar gacha en este grupo usando ' + usedPrefix + 'gacha on*');
+async function saveHarem(harem) {
+  await fs.writeFile(haremFilePath, JSON.stringify(harem, null, 2), 'utf-8')
+}
 
-    const userData = global.db.data.users[m.sender] || {};
-    const now = Date.now();
-    const cooldown = 0xf * 0x3c * 0x3e8;
+let handler = async (m, { conn }) => {
+  const userId = m.sender
+  const now = Date.now()
 
-    if (userData.lastRoll && now < userData.lastRoll) {
-        const remaining = Math.ceil((userData.lastRoll - now)/1000);
-        const minutes = Math.floor(remaining/60);
-        const seconds = remaining % 60;
-        let text = '';
-        if (minutes > 0) text += minutes + ' minuto' + (minutes !== 1 ? 's ' : ' ');
-        text += seconds + ' segundo' + (seconds !== 1 ? 's' : '');
-        return m.reply('ꕥ Debes esperar ' + text + ' para usar ' + usedPrefix + command);
+  if (cooldowns[userId] && now < cooldowns[userId]) {
+    const remainingTime = Math.ceil((cooldowns[userId] - now) / 1000)
+    const minutes = Math.floor(remainingTime / 60)
+    const seconds = remainingTime % 60
+    return conn.reply(m.chat, `《✧》Debes esperar *${minutes} minutos y ${seconds} segundos* para usar *#rw* de nuevo.`, m)
+  }
+
+  try {
+    const characters = await loadCharacters()
+    const randomCharacter = characters[Math.floor(Math.random() * characters.length)]
+    const randomImage = randomCharacter.img[Math.floor(Math.random() * randomCharacter.img.length)]
+
+    const harem = await loadHarem()
+
+    // 🔍 Buscar dueño del personaje
+    let userEntry = null
+    for (const [uid, chars] of Object.entries(harem)) {
+      if (Array.isArray(chars) && chars.some(c => c.id === randomCharacter.id)) {
+        userEntry = { userId: uid, character: chars.find(c => c.id === randomCharacter.id) }
+        break
+      }
     }
 
-    try {
-        const allCharacters = await loadCharacters();
-        if (!allCharacters.length) return m.reply('⚠︎ No hay personajes disponibles.');
+    const statusMessage = userEntry
+      ? `Reclamado por @${userEntry.userId.split('@')[0]}`
+      : 'Libre'
 
-        const char = allCharacters[Math.floor(Math.random() * allCharacters.length)];
-        if (!char || !char.name) return m.reply('⚠︎ El personaje seleccionado es inválido.');
+    const message = `❀ Nombre » *${randomCharacter.name}*
+⚥ Género » *${randomCharacter.gender}*
+✰ Valor » *${randomCharacter.value}*
+♡ Estado » ${statusMessage}
+❖ Fuente » *${randomCharacter.source}*
+✦ ID: *${randomCharacter.id}*`
 
-        const tag = formatTag(char.variants?.[0] || char.name);
-        const images = await buscarImagenDelirius(tag);
-        const img = images.length ? images[Math.floor(Math.random() * images.length)] : (char.img?.[0] || null);
+    const mentions = userEntry ? [userEntry.userId] : []
+    await conn.sendFile(m.chat, randomImage, `${randomCharacter.name}.jpg`, message, m, { mentions })
 
-        if (!img) return m.reply('ꕥ No se encontró imágenes para el personaje ' + char.name);
-
-        chatData.lastRolledCharacter = { name: char.name, media: img };
-
-        const message = await conn.sendFile(
-            m.chat,
-            img,
-            (char.name || 'personaje') + '.jpg',
-            `❀ Nombre » *${char.name}*\n✰ Valor » *${Number(char.value || 100).toLocaleString()}*\n♡ Estado » *${char.user ? char.user.split('@')[0] : 'desconocido'}*\n${char.source || 'Libre'}`,
-            m
-        );
-
-        chatData.lastRolledMsgId = message?.key?.id || null;
-        userData.lastRoll = now + cooldown;
-        global.db.data.users[m.sender] = userData;
-    } catch (e) {
-        await m.reply('⚠︎ Se ha producido un problema.\n' + e.message);
+    if (!randomCharacter.user) {
+      await saveCharacters(characters)
     }
-};
 
-handler.command = ['roll', 'rw', 'gacha'];
-handler.owner = false;
-handler.mods = ['gacha', 'rw', 'roll'];
-handler.register = true;
-export default handler;
+    cooldowns[userId] = now + 15 * 60 * 1000
+  } catch (error) {
+    await conn.reply(m.chat, `✘ Error al cargar el personaje: ${error.message}`, m)
+  }
+}
+
+handler.help = ['ver', 'rw', 'rollwaifu']
+handler.tags = ['gacha']
+handler.command = ['ver', 'rw', 'rollwaifu']
+handler.group = true
+
+export default handler
