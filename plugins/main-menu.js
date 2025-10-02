@@ -25,7 +25,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     let videoUrl = null
 
     const senderBotNumber = conn.user.jid.split('@')[0]
-    const configPath = path.join('./Sessions/SubBot', senderBotNumber, 'config.json')
+    const configPath = path.join('./Doges/SubBots', senderBotNumber, 'config.json')
     if (fs.existsSync(configPath)) {
       try {
         const subBotConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
