@@ -34,9 +34,17 @@ export async function handler(chatUpdate) {
             if (fs.existsSync(configPath)) {
                 const config = JSON.parse(fs.readFileSync(configPath));
                 if (config.prefix) {
-                    prefixRegex = config.prefix === 'multi'
-                        ? /^[#$@*&?,;:+×!_\-.]/
-                        : new RegExp(`^(${[...config.prefix].map(c => c.replace(/([.*+?^${}()|\[\]\\])/g, '\\$1')).join('|')})`);
+                    if (config.prefix === 'multi') {
+                        prefixRegex = /^[#$@*&?,;:+×!_\-.]/;
+                    } else {
+                        const prefixes = Array.isArray(config.prefix) ? config.prefix : [config.prefix];
+                        const escapedPrefixes = prefixes.filter(p => p && typeof p === 'string').map(p => p.replace(/([.*+?^${}()|\[\]\\])/g, '\\$1'));
+                        if (escapedPrefixes.length > 0) {
+                            prefixRegex = new RegExp(`^(${escapedPrefixes.join('|')})`);
+                        } else {
+                            prefixRegex = global.prefix;
+                        }
+                    }
                     prefixCache.set(senderNumber, prefixRegex);
                 }
             }
@@ -116,10 +124,10 @@ export async function handler(chatUpdate) {
     }
 
     const conn = m.conn || global.conn;
-    const isROwner = global.owner.some(([number]) => number.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender);
+    const isROwner = global.owner.some(([number]) => number && number.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender);
     const isOwner = isROwner || m.fromMe;
-    const isMods = isROwner || global.mods.some(v => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender);
-    const isPrems = isROwner || global.prems.some(v => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender) || user.premium;
+    const isMods = isROwner || global.mods.some(v => v && v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender);
+    const isPrems = isROwner || global.prems.some(v => v && v.replace(/[^0-9]/g, "") + "@s.whatsapp.net" === m.sender) || user.premium;
 
     if (opts["nyimak"]) return;
     if (!m.fromMe && !isMods && settings.self) return;
