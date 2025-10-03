@@ -9,6 +9,7 @@ global.owner = [
 global.vips = []
 global.sessions = "Doges/Principal"
 global.jadi = "Doges/SubBots"
+global.db.data.settings[conn.user.jid].jadibotmd = true
 
 global.nombre2 = '𝐃𝐨𝐠 ᴮʸ ᴹᵃʸᶜᵒˡ'
 global.author = '𝙃𝙚𝙘𝙝𝙤 𝙥𝙤𝙧 𝙎𝙤𝙮𝙈𝙖𝙮𝙘𝙤𝙡 <3'
