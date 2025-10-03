@@ -83,7 +83,7 @@ const bratvid = async (m, { conn, text }) => {
     if (!json.status || !json.result) throw new Error('Error en la API')
 
     const videoUrl = json.result
-    const packname = global.packname || 'MaycolPlus • Bot kwai :3'
+    const packname = global.packname || 'Bot Pendejo Todo Culiao ,• DogMD'
     const author = global.author || 'SoyMaycol • 51921826291'
 
     const stiker = await sticker(false, videoUrl, packname, author)
