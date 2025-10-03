@@ -238,7 +238,13 @@ export async function handler(chatUpdate) {
                     continue
                 }
             const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
-            let _prefix = plugin.customPrefix ? plugin.customPrefix : conn.prefix ? conn.prefix : global.prefix
+let _prefix = plugin.customPrefix ? plugin.customPrefix : conn.prefix ? conn.prefix : global.prefix
+
+// Validar que _prefix sea un tipo válido antes de procesarlo
+if (typeof _prefix === 'boolean' || _prefix === null || _prefix === undefined) {
+    _prefix = global.prefix || '.'
+}
+
 let match = (_prefix instanceof RegExp ? 
     [[_prefix.exec(m.text), _prefix]] :
     Array.isArray(_prefix) ?
@@ -251,13 +257,7 @@ let match = (_prefix instanceof RegExp ?
         typeof _prefix === 'string' ?
             [[new RegExp(str2Regex(_prefix)).exec(m.text), new RegExp(str2Regex(_prefix))]] :
             [[[], new RegExp]]
-)
-
-if (Array.isArray(match)) {
-    match = match.find(p => p[1])
-} else {
-    match = [[[], new RegExp]]
-}
+).find(p => p[1])
             if (typeof plugin.before === 'function') {
                 if (await plugin.before.call(this, m, {
                     match,
