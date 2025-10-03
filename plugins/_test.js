@@ -1,8 +1,5 @@
 const handler = async (m, { conn, participants, groupMetadata, text, isAdmin, isOwner }) => {
-  // Verificar que se esté en un grupo
-  if (!m.isGroup) {
-    return m.reply('❌ Este comando solo funciona en grupos.')
-  }
+  if (!m.isGroup) return m.reply('❌ Este comando solo funciona en grupos.')
 
   try {
     const sender = m.sender
@@ -10,21 +7,19 @@ const handler = async (m, { conn, participants, groupMetadata, text, isAdmin, is
     const metadata = groupMetadata || await conn.groupMetadata(groupId)
     const allParticipants = participants || metadata.participants || []
 
-    // Buscar al usuario que ejecutó el comando
     const userInfo = allParticipants.find(p => p.id === sender)
 
-    // Obtener datos
     const isGroupAdmin = userInfo?.admin === 'admin' || userInfo?.admin === 'superadmin'
     const isGroupOwner = userInfo?.admin === 'superadmin'
     const role = userInfo?.admin || 'member'
 
-    // Lista de administradores
-    const adminList = allParticipants
-      .filter(p => p.admin)
-      .map(p => `@${p.id.split('@')[0]} (${p.admin})`)
+    // Lista de administradores en array y en texto separado
+    const adminParticipants = allParticipants.filter(p => p.admin)
+    const adminListText = adminParticipants
+      .map(p => `▢ @${p.id.split('@')[0]} (${p.admin})`)
       .join('\n')
+    const adminMentionList = adminParticipants.map(p => p.id)
 
-    // Mensaje de depuración
     const debugMessage = `
 ≡ *Debug de Permisos del Usuario*
 
@@ -38,8 +33,8 @@ const handler = async (m, { conn, participants, groupMetadata, text, isAdmin, is
 ▢ *¿Es admin?:* ${isGroupAdmin ? '✅ Sí' : '❌ No'}
 ▢ *¿Es owner (creador)?:* ${isGroupOwner ? '✅ Sí' : '❌ No'}
 
-≡ *Admins del grupo (${adminList.split('\n').length}):*
-${adminList}
+≡ *Admins del grupo (${adminParticipants.length}):*
+${adminListText}
 
 ≡ *Raw del participante:*
 \`\`\`json
@@ -47,7 +42,7 @@ ${JSON.stringify(userInfo, null, 2)}
 \`\`\`
 `.trim()
 
-    await conn.reply(m.chat, debugMessage, m, { mentions: [sender, ...adminList.map(a => a.id)] })
+    await conn.reply(m.chat, debugMessage, m, { mentions: [sender, ...adminMentionList] })
 
   } catch (e) {
     console.error(e)
