@@ -33,7 +33,7 @@ users[who].bannedReason = reason
 var nameBan = await conn.getName(who)
 await m.react('✔️')
 await conn.reply(m.chat, `❀ ${nameBan} ha sido baneado.\n> Razón: ${reason}`, m, { mentions: [who] })
-await conn.reply(`${suittag}@s.whatsapp.net`, `❀ ${nameBan} fue baneado por ${await conn.getName(m.sender)}\n> ✦ Razón: ${reason}`, m)
+await conn.reply(`❀ ${nameBan} fue baneado por ${await conn.getName(m.sender)}\n> ✦ Razón: ${reason}`, m)
 break
 }
 case 'unban': {
@@ -46,7 +46,7 @@ users[who].bannedReason = ''
 await m.react('✔️')
 let nameUnban = await conn.getName(who)
 await conn.reply(m.chat, `❀ ${nameUnban} ha sido desbaneado.`, m, { mentions: [who] })
-await conn.reply(`${suittag}@s.whatsapp.net`, `❀ ${nameUnban} fue desbaneado por ${await conn.getName(m.sender)}.`, m)
+await conn.reply(`❀ ${nameUnban} fue desbaneado por ${await conn.getName(m.sender)}.`, m)
 break
 }
 case 'block': {
