@@ -1,8 +1,4 @@
 let handler = async (m, { conn, command, isAdmin, isROwner, isOwner, groupMetadata }) => {
-    if (!isAdmin && !isOwner && !isROwner) {
-        return m.reply('🛑 Solo *administradores* o el *dueño del bot* pueden usar este comando.')
-    }
-
     let chat = global.db.data.chats[m.chat]
     if (command === 'bot') {
         const args = m.text.split(' ')
@@ -24,6 +20,6 @@ let handler = async (m, { conn, command, isAdmin, isROwner, isOwner, groupMetada
 
 handler.command = /^bot$/i
 handler.group = true
-handler.admin = true // Solo admins o dueños
+handler.admin = true
 handler.botAdmin = true
 export default handler
