@@ -89,10 +89,10 @@ const handler = async (m, { conn, args }) => {
   let fotoPerfil = await conn.profilePictureUrl(quien, 'image').catch(_ => 'https://telegra.ph/file/320b066dc81928b782c7b.png')
 
   // Detectar si es subbot y leer nombre desde config.json
-  let nombrePack = global.packname || '✦ Michi - AI ✦'
+  let nombrePack = global.packname || 'DogMD • Bot Bien Perron' 
   try {
     const botActual = conn.user?.jid?.split('@')[0].replace(/\D/g, '')
-    const configPath = path.join('./JadiBots', botActual, 'config.json')
+    const configPath = path.join('./Doges/SubBots', botActual, 'config.json')
     if (fs.existsSync(configPath)) {
       const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
       if (config.name) nombrePack = config.name
