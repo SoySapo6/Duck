@@ -7,8 +7,8 @@ const handler = async (m, { conn, participants, groupMetadata, text, isAdmin, is
     const metadata = groupMetadata || await conn.groupMetadata(groupId)
     const allParticipants = participants || metadata.participants || []
 
-    const userInfo = allParticipants.find(p => p.id === sender)
-
+    const userInfo = allParticipants.find(p => p.id?.split('@')[0] === sender.split('@')[0])
+    
     const isGroupAdmin = userInfo?.admin === 'admin' || userInfo?.admin === 'superadmin'
     const isGroupOwner = userInfo?.admin === 'superadmin'
     const role = userInfo?.admin || 'member'
