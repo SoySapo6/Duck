@@ -206,13 +206,46 @@ export async function handler(chatUpdate) {
 
         let usedPrefix
         
-        const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
-        const participants = (m.isGroup ? groupMetadata.participants : []) || []
-        const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {}
-        const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {}
-        const isRAdmin = user?.admin == 'superadmin' || false
-        const isAdmin = isRAdmin || user?.admin == 'admin' || false
-        const isBotAdmin = bot?.admin == 'superadmin' || bot?.admin == 'admin' || false
+        // Obtener metadata del grupo con refresh forzado si es necesario
+        let groupMetadata = {}
+        let participants = []
+        
+        if (m.isGroup) {
+            try {
+                // Intentar obtener metadata actualizada
+                groupMetadata = await this.groupMetadata(m.chat).catch(_ => null) || 
+                               ((conn.chats[m.chat] || {}).metadata) || {}
+                participants = groupMetadata.participants || []
+            } catch (e) {
+                console.error('Error obteniendo groupMetadata:', e)
+                groupMetadata = {}
+                participants = []
+            }
+        }
+        
+        // Buscar usuario y bot en participantes
+        const user = participants.find(u => {
+            const userId = conn.decodeJid(u.id)
+            return userId === m.sender
+        }) || {}
+        
+        const bot = participants.find(u => {
+            const botId = conn.decodeJid(u.id)
+            return botId === this.user.jid
+        }) || {}
+        
+        // Detectar owner/creador del grupo
+        const ownerId = groupMetadata?.owner || groupMetadata?.creator || null
+        
+        // Verificar admin con fallback a owner
+        let userAdminStatus = user?.admin || null
+        if (ownerId && m.sender === ownerId) {
+            userAdminStatus = 'superadmin'
+        }
+        
+        const isRAdmin = userAdminStatus === 'superadmin'
+        const isAdmin = userAdminStatus === 'admin' || userAdminStatus === 'superadmin'
+        const isBotAdmin = bot?.admin === 'admin' || bot?.admin === 'superadmin'
 
         const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
         for (let name in global.plugins) {
@@ -472,7 +505,7 @@ let msg = {
     premium: `💎🐶 Perros VIP activado! *${global.comando || 'este comando'}* es solo para ustedes. Galletas extra, ataques de ternura y comandos que los lomitos normales solo sueñan 😎.`,  
     group: `�🏡 Este comando *${global.comando || 'este comando'}* solo funciona en el parque (grupo). Si estás en tu patio privado... sorry bro, no hay acceso XD`,  
     private: `📩🐶 Solo en privado, lomito. Nada de grupos! *${global.comando || 'este comando'}* es demasiado swag para la calle 😎.`,  
-    admin: `🪶🕠Solo los admin-dogs del grupo pueden usar *${global.comando || 'este comando'}*. Mantienen la paz y reparte galletas como un verdadero Cheems.`,  
+    admin: `🪶🕠Solo los admin-dogs del grupo pueden usar *${global.comando || 'este comando'}*. Mantienen la paz y reparte galletas como un verdadero Cheems 🍪💀. Tung Tung Sahur nos llama >:)`,  
     botAdmin: `⚠️🐶 Para ejecutar *${global.comando || 'este comando'}*, tengo que ser admin del parque también. Si no, ni ladrando puedo :c`,  
     unreg: `◽🕠Aún no estás registrado, perrito! Para usar *${global.comando || 'este comando'}*, primero completa tu ID callejero:\n\n*/reg nombre.edad*\nEj: */reg Cheems.5*\nNo dejes que el pasado te coma 🾔¥`,  
     restrict: `🚫🐶 Este comando está cerrado por los Big Dogs del parque. Ningún lomito puede usarlo por ahora 😎.`  
