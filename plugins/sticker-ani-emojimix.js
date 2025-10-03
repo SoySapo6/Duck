@@ -34,8 +34,8 @@ const handler = async (msg, { conn, text }) => {
 
     const senderName = msg.pushName || "Desconocid@ sexy"
     const metadata = {
-      packname: `MaycolPlus ✦ ${senderName}`,
-      author: `Hecho por SoyMaycol`,
+      packname: `DogMD ✦ ${senderName}`,
+      author: `Hecho por SoyMaycol • Bot Pendejo`,
       categories: [emoji]
     }
 
