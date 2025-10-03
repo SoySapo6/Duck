@@ -295,6 +295,10 @@ export async function handler(chatUpdate) {
 
                 if (!isAccept)
                     continue
+                    
+                // ESTO ES LO IMPORTANTE: Guardar el comando actual en global
+                global.comando = command
+                
                 m.plugin = name
                 if (m.chat in global.db.data.chats || m.sender in global.db.data.users) {
                     let chat = global.db.data.chats[m.chat]
@@ -462,15 +466,15 @@ export async function handler(chatUpdate) {
 
 global.dfail = (type, m, conn, usedPrefix) => {
 let msg = {  
-    rowner: `🐕💀 Ey humano, *${global.comando}* es nivel Doge Supremo. Solo los jefes del parque (aka el creador del bot) pueden usarlo. Ningún otro lomito toca esto, salvo mi pana Miguel 🐶🔥.`,  
-    owner: `🐶👑 Comando *${global.comando}* solo para los dev-dogs del barrio. Incluye poderes estilo Cheems y Doge para controlar el parque 🐕💎. PD: alguien ha visto a Doge por ahí? 🕵️‍♂️`,  
-    mods: `🛡️🐾 Solo los guardianes del grupo pueden usar *${global.comando}*. Manteniendo el orden como Shiba en memes 🐕✨.`,  
-    premium: `💎🐶 Perros VIP activado! *${global.comando}* es solo para ustedes. Galletas extra, ataques de ternura y comandos que los lomitos normales solo sueñan 😎.`,  
-    group: `🐕🏡 Este comando *${global.comando}* solo funciona en el parque (grupo). Si estás en tu patio privado... sorry bro, no hay acceso XD`,  
-    private: `📩🐶 Solo en privado, lomito. Nada de grupos! *${global.comando}* es demasiado swag para la calle 😎.`,  
-    admin: `🪶🐕 Solo los admin-dogs del grupo pueden usar *${global.comando}*. Mantienen la paz y reparte galletas como un verdadero Cheems 🍪💀. Tung Tung Sahur nos llama >:)`,  
-    botAdmin: `⚠️🐶 Para ejecutar *${global.comando}*, tengo que ser admin del parque también. Si no, ni ladrando puedo :c`,  
-    unreg: `❗🐕 Aún no estás registrado, perrito! Para usar *${global.comando}*, primero completa tu ID callejero:\n\n*/reg nombre.edad*\nEj: */reg Cheems.5*\nNo dejes que el pasado te coma 🐾🔥`,  
+    rowner: `�💀 Ey humano, *${global.comando || 'este comando'}* es nivel Doge Supremo. Solo los jefes del parque (aka el creador del bot) pueden usarlo. Ningún otro lomito toca esto, salvo mi pana Miguel 🐶🔥.`,  
+    owner: `🐶👑 Comando *${global.comando || 'este comando'}* solo para los dev-dogs del barrio. Incluye poderes estilo Cheems y Doge para controlar el parque �💎. PD: alguien ha visto a Doge por ahí? 🕵️‍♂️`,  
+    mods: `🛡️🾠Solo los guardianes del grupo pueden usar *${global.comando || 'este comando'}*. Manteniendo el orden como Shiba en memes �✨.`,  
+    premium: `💎🐶 Perros VIP activado! *${global.comando || 'este comando'}* es solo para ustedes. Galletas extra, ataques de ternura y comandos que los lomitos normales solo sueñan 😎.`,  
+    group: `�🏡 Este comando *${global.comando || 'este comando'}* solo funciona en el parque (grupo). Si estás en tu patio privado... sorry bro, no hay acceso XD`,  
+    private: `📩🐶 Solo en privado, lomito. Nada de grupos! *${global.comando || 'este comando'}* es demasiado swag para la calle 😎.`,  
+    admin: `🪶🕠Solo los admin-dogs del grupo pueden usar *${global.comando || 'este comando'}*. Mantienen la paz y reparte galletas como un verdadero Cheems 🍪💀. Tung Tung Sahur nos llama >:)`,  
+    botAdmin: `⚠️🐶 Para ejecutar *${global.comando || 'este comando'}*, tengo que ser admin del parque también. Si no, ni ladrando puedo :c`,  
+    unreg: `◽🕠Aún no estás registrado, perrito! Para usar *${global.comando || 'este comando'}*, primero completa tu ID callejero:\n\n*/reg nombre.edad*\nEj: */reg Cheems.5*\nNo dejes que el pasado te coma 🾔¥`,  
     restrict: `🚫🐶 Este comando está cerrado por los Big Dogs del parque. Ningún lomito puede usarlo por ahora 😎.`  
 }[type];
     if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))
