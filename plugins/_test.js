@@ -3,48 +3,59 @@ const handler = async (m, { conn, text, participants, groupMetadata, args, isAdm
     const isGroup = !!m.isGroup
     const metadata = isGroup ? (groupMetadata || await conn.groupMetadata(m.chat)) : null
     const allParticipants = isGroup ? (participants || metadata?.participants || []) : []
-    
-    // Selección del usuario objetivo
+
+    // Obtener ID del objetivo
     const mention = m.mentionedJid?.[0]
     const quoted = m.quoted?.sender
     const targetId = mention || quoted || m.sender
 
-    // Buscar al usuario en la lista de participantes del grupo
+    // Lista de administradores
+    const adminParticipants = isGroup ? allParticipants.filter(p => p.admin) : []
+
+    // Buscar el usuario en los participantes
     const target = allParticipants.find(p => p.id?.split('@')[0] === targetId.split('@')[0])
     const fallback = allParticipants.find(p => p.id === targetId)
-    const adminParticipants = isGroup ? allParticipants.filter(p => p.admin) : []
 
     let userInfo = target || fallback
 
-    // Si no encuentra al usuario, intenta con la lista de admins
+    // Fallback si no se encontró en metadata.participants
     if (!userInfo && isGroup) {
       const fromAdmins = adminParticipants.find(p => p.id?.split('@')[0] === targetId.split('@')[0])
-      if (fromAdmins) userInfo = fromAdmins
+      if (fromAdmins) {
+        userInfo = {
+          id: fromAdmins.id,
+          admin: fromAdmins.admin || 'admin',
+          isFallback: true
+        }
+      } else {
+        // Último recurso: crear manual
+        userInfo = {
+          id: targetId,
+          admin: 'unknown',
+          isFallback: true
+        }
+      }
     }
 
-    // Datos del participante
+    // Datos de rol
     const isGroupAdmin = userInfo?.admin === 'admin' || userInfo?.admin === 'superadmin'
     const isGroupOwner = userInfo?.admin === 'superadmin'
     const role = userInfo?.admin || 'member'
 
+    // Obtener nombre del usuario y del grupo
+    let userName = 'No disponible'
+    try { userName = await conn.getName(targetId) } catch {}
+
+    const groupName = metadata?.subject || 'No disponible'
+
+    // Lista de admins en el grupo
     const adminListText = isGroup
       ? adminParticipants.map(p => `▢ @${p.id.split('@')[0]} (${p.admin})`).join('\n')
       : '— No aplica, no es un grupo —'
 
     const adminMentionList = adminParticipants.map(p => p.id)
 
-    // Extra: nombre del usuario objetivo
-    let userName
-    try {
-      userName = await conn.getName(targetId)
-    } catch {
-      userName = 'No disponible'
-    }
-
-    // Extra: nombre del grupo
-    const groupName = metadata?.subject || 'No disponible'
-
-    // Estructura del debug
+    // Armar mensaje final
     const debugMessage = `
 ≡ *Debug de Permisos del Usuario*
 
@@ -88,6 +99,6 @@ ${userInfo ? JSON.stringify(userInfo, null, 2) : 'No se encontró información'}
 handler.help = ['admincheck', 'isadmin']
 handler.tags = ['group', 'info', 'debug']
 handler.command = ['admincheck', 'isadmin']
-handler.group = false // ✅ También puede usarse en privado
+handler.group = false // También funciona en privado
 
 export default handler
