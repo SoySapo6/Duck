@@ -38,7 +38,7 @@ font: 'BLOCK',
 align: 'center',
 gradient: ['grey', 'white']
 })
-say('Hecho por SoyMaycol <3', {
+say('Hecho por SoyMaycol', {
 font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']
