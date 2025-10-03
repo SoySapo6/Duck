@@ -16,8 +16,14 @@ const handler = async (m, { conn, text, participants, groupMetadata, args }) => 
     // Si no lo encuentra, intentar de nuevo sin split
     const fallback = allParticipants.find(p => p.id === targetId)
 
-    const userInfo = target || fallback
+    let userInfo = target || fallback
 
+// Si no encuentra al usuario, lo reconstruimos desde la lista de admins (workaround)
+if (!userInfo) {
+  const fromAdmins = adminParticipants.find(p => p.id?.split('@')[0] === targetId.split('@')[0])
+  if (fromAdmins) userInfo = fromAdmins
+}
+    
     const isGroupAdmin = userInfo?.admin === 'admin' || userInfo?.admin === 'superadmin'
     const isGroupOwner = userInfo?.admin === 'superadmin'
     const role = userInfo?.admin || 'member'
