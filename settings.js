@@ -2,7 +2,9 @@ import { watchFile, unwatchFile } from 'fs'
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
-global.owner = ['51921826291','SoyMaycol',true];
+global.owner = [
+    ['51921826291', 'SoyMaycol', true]
+];
 
 global.vips = []
 global.sessions = "Doges/Principal"
