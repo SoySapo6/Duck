@@ -24,6 +24,6 @@ let handler = async (m, { conn, command, isAdmin, isROwner, isOwner, groupMetada
 
 handler.command = /^bot$/i
 handler.group = true
-handler.admin = false // Solo admins o dueños
-handler.botAdmin = false
+handler.admin = true // Solo admins o dueños
+handler.botAdmin = true
 export default handler
