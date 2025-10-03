@@ -15,41 +15,50 @@ const handler = async (m, { conn, text, participants, groupMetadata, args, isAdm
 
     const groupName = metadata?.subject || 'No disponible'
 
-    // Lista de administradores
-    const adminParticipants = isGroup ? allParticipants.filter(p => p.admin) : []
+    // Obtener admins con método directo si está disponible (fallback)
+    let adminParticipants = []
+    try {
+      if (conn.groupGetAdmins) {
+        const adminIds = await conn.groupGetAdmins(m.chat)
+        adminParticipants = allParticipants.filter(p => adminIds.includes(p.id))
+      } else {
+        adminParticipants = allParticipants.filter(p => p.admin)
+      }
+    } catch {
+      adminParticipants = allParticipants.filter(p => p.admin)
+    }
+
+    // Obtener creador / owner
+    const ownerId = metadata?.owner || metadata?.creator || null
 
     // Buscar al usuario en los participantes
-    const target = allParticipants.find(p => p.id?.split('@')[0] === targetId.split('@')[0])
-    const fallback = allParticipants.find(p => p.id === targetId)
-    let userInfo = target || fallback
+    let userInfo = allParticipants.find(p => p.id === targetId)
 
-    // Fallback: si no lo encuentra en los participantes, lo busca en adminParticipants
-    if (!userInfo && isGroup) {
-      const fromAdmins = adminParticipants.find(p => p.id?.split('@')[0] === targetId.split('@')[0])
-      if (fromAdmins) {
-        userInfo = {
-          id: fromAdmins.id,
-          admin: fromAdmins.admin || 'unknown',
-          isFallback: true
-        }
-      } else {
-        // Último recurso: objeto manual con estado desconocido
-        userInfo = {
-          id: targetId,
-          admin: 'unknown',
-          isFallback: true
-        }
+    // Si no lo encontró, buscar en admins
+    if (!userInfo) {
+      userInfo = adminParticipants.find(p => p.id === targetId)
+    }
+
+    // Si sigue sin encontrar, fallback manual
+    if (!userInfo) {
+      userInfo = {
+        id: targetId,
+        admin: 'unknown',
+        isFallback: true
       }
     }
 
-    // Evaluar rol y permisos
-    const role = userInfo?.admin || 'member'
+    // Detectar rol real con fallback owner
+    let role = userInfo.admin || 'member'
+    if (ownerId && targetId === ownerId) {
+      role = 'superadmin' // Forzar owner
+    }
     const isGroupAdmin = role === 'admin' || role === 'superadmin'
     const isGroupOwner = role === 'superadmin'
 
-    // Lista de admins en formato visual
+    // Lista de admins en texto
     const adminListText = isGroup
-      ? adminParticipants.map(p => `▢ @${p.id.split('@')[0]} (${p.admin})`).join('\n')
+      ? adminParticipants.map(p => `▢ @${p.id.split('@')[0]} (${p.admin || 'admin'})`).join('\n')
       : '— No aplica (fuera de grupo) —'
 
     const adminMentionList = adminParticipants.map(p => p.id)
@@ -73,7 +82,7 @@ ${adminListText}
 
 ≡ *Raw del participante:*
 \`\`\`json
-${userInfo ? JSON.stringify(userInfo, null, 2) : 'No se encontró información'}
+${JSON.stringify(userInfo, null, 2)}
 \`\`\`
 
 ≡ *Debug Interno:*
@@ -83,6 +92,7 @@ ${userInfo ? JSON.stringify(userInfo, null, 2) : 'No se encontró información'}
 ▢ *getName:* ${userName}
 ▢ *isBotAdmin:* ${isBotAdmin}
 ▢ *isSenderAdmin (por WhatsApp):* ${isAdmin}
+▢ *ownerId:* ${ownerId || 'No disponible'}
 `.trim()
 
     await conn.reply(m.chat, debugMessage, m, {
@@ -98,6 +108,6 @@ ${userInfo ? JSON.stringify(userInfo, null, 2) : 'No se encontró información'}
 handler.help = ['admincheck', 'isadmin']
 handler.tags = ['group', 'info', 'debug']
 handler.command = ['admincheck', 'isadmin']
-handler.group = false // ✅ También funciona fuera de grupos
+handler.group = true
 
-export default handlerd
+export default handler
