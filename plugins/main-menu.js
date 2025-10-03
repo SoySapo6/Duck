@@ -38,11 +38,12 @@ let handler = async (m, { conn, usedPrefix }) => {
     let rolBot = conn.user.jid == global.conn.user.jid ? '✰ 𝐏𝐫𝐢𝐧𝐜𝐢𝐩𝐚𝐥' : '❉ 𝐒𝐮𝐛𝐁𝐨𝐭'
 
     
-    let txt = `𝐇𝐨𝐥𝐚 𝐁𝐫𝐨!, 𝐒𝐨𝐲 *${botNameToShow}* (${rolBot})
+    let txt = `𝐇𝐨𝐥𝐚 𝐁𝐫𝐨, 𝐒𝐨𝐲 *${botNameToShow}* (${rolBot})
 
 ➜ ℍ𝕠𝕣𝕒 ᴾᵉʳᵘ: ${moment.tz("America/Lima").format("HH:mm:ss")}
 ➜ 𝐅𝐞𝐜𝐡𝐚: ${moment.tz("America/Lima").format("DD/MM/YYYY")}
 ➜ 𝐀𝐜𝐭𝐢𝐯𝐢𝐝𝐚𝐝: ${uptimeStr}
+> Hecho por SoyMaycol <3
 
 ━━━━━━[ 🗿 ]━━━━━━\n`
 
