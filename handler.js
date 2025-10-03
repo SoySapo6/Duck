@@ -472,7 +472,7 @@ let msg = {
     premium: `💎🐶 Perros VIP activado! *${global.comando || 'este comando'}* es solo para ustedes. Galletas extra, ataques de ternura y comandos que los lomitos normales solo sueñan 😎.`,  
     group: `�🏡 Este comando *${global.comando || 'este comando'}* solo funciona en el parque (grupo). Si estás en tu patio privado... sorry bro, no hay acceso XD`,  
     private: `📩🐶 Solo en privado, lomito. Nada de grupos! *${global.comando || 'este comando'}* es demasiado swag para la calle 😎.`,  
-    admin: `🪶🕠Solo los admin-dogs del grupo pueden usar *${global.comando || 'este comando'}*. Mantienen la paz y reparte galletas como un verdadero Cheems 🍪💀. Tung Tung Sahur nos llama >:)`,  
+    admin: `🪶🕠Solo los admin-dogs del grupo pueden usar *${global.comando || 'este comando'}*. Mantienen la paz y reparte galletas como un verdadero Cheems.`,  
     botAdmin: `⚠️🐶 Para ejecutar *${global.comando || 'este comando'}*, tengo que ser admin del parque también. Si no, ni ladrando puedo :c`,  
     unreg: `◽🕠Aún no estás registrado, perrito! Para usar *${global.comando || 'este comando'}*, primero completa tu ID callejero:\n\n*/reg nombre.edad*\nEj: */reg Cheems.5*\nNo dejes que el pasado te coma 🾔¥`,  
     restrict: `🚫🐶 Este comando está cerrado por los Big Dogs del parque. Ningún lomito puede usarlo por ahora 😎.`  
